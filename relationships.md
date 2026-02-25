@@ -1,30 +1,49 @@
-# Relationships between Nodes
+# Esquema del Modelo de Datos (Property Graph)
 
-## Paper Relationships:
+## 1. Nodos y Atributos
 
-1. (:Paper)--[:Cites]--->(:Paper)
-2. (:Paper)--[:Contains]--->(:Topics)
-3. (:Paper)--[:Starts_with]--->(:Abstract)
-4. (:Paper)--[:Published_at]--->(:Edition)
-5. (:Paper)--[:Published_at]--->(:Volume)
-6. (:Paper)--[:Appear_in]--->(:Proceedings)
+| Etiqueta (Node) | Atributos (Properties) |
+| :--- | :--- |
+| **:Paper** | `{title, doi, num_pages, abstract_summary, year_published}` |
+| **:Author** | `{name, orcid, affiliation}` |
+| **:Topic** | `{name, area}` |
+| **:Abstract** | `{content, word_count}` |
+| **:Edition** | `{number, start_date, end_date}` |
+| **:Volume** | `{volume_id, issue_number}` |
+| **:Proceedings** | `{title, publisher}` |
+| **:Workshop** | `{name, acronym}` |
+| **:Conference** | `{name, acronym, ranking}` |
+| **:Journal** | `{name, issn, impact_factor}` |
+| **:Year** | `{value}` |
+| **:City** | `{name, country}` |
 
-## Author Relationships:
+---
 
-1. (:Author)-[:WRITES {role: 'main', is_corresponding: true}]->(:Paper)
-2. (:Author)-[:WRITES {role: 'co-author', is_corresponding: false}]->(:Paper)
+## 2. Relaciones entre Nodos
 
-## Edition Relationships:
+### Paper Relationships:
 
-1. (:Editions)--[:Part_of]--->(:Workshop)
-2. (:Editions)--[:Part_of]--->(:Conference)
-3. (:Editions)--[:Dated_in]--->(:Year)
-4. (:Editions)--[:Placed_at]--->(:City)
-5. (:Editions)--[:Has_proceedings]--->(:Proceedings)
+1. `(:Paper)-[:CITES {context: string, rank_score: float}]->(:Paper)`
+2. `(:Paper)-[:CONTAINS {relevance_score: float}]->(:Topic)`
+3. `(:Paper)-[:STARTS_WITH]->(:Abstract)`
+4. `(:Paper)-[:PUBLISHED_AT {pages: string}]->(:Edition)`
+5. `(:Paper)-[:PUBLISHED_AT {pages: string}]->(:Volume)`
+6. `(:Paper)-[:APPEAR_IN]->(:Proceedings)`
 
-## Volumes Relationships
+### Author Relationships:
 
-1. (:Volumes)--[:Dated_in]--->(:Year)
-2. (:Volumes)--[:Part_of]--->(:Journal)
+1. `(:Author)-[:WRITES {role: 'main', is_corresponding: true, author_order: 1}]->(:Paper)`
+2. `(:Author)-[:WRITES {role: 'co-author', is_corresponding: false, author_order: int}]->(:Paper)`
 
+### Edition Relationships:
 
+1. `(:Edition)-[:PART_OF]->(:Workshop)`
+2. `(:Edition)-[:PART_OF]->(:Conference)`
+3. `(:Edition)-[:DATED_IN]->(:Year)`
+4. `(:Edition)-[:PLACED_AT]->(:City)`
+5. `(:Edition)-[:HAS_PROCEEDINGS]->(:Proceedings)`
+
+### Volume Relationships:
+
+1. `(:Volume)-[:DATED_IN]->(:Year)`
+2. `(:Volume)-[:PART_OF]->(:Journal)`
