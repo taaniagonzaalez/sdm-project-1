@@ -43,3 +43,6 @@ Para este laboratorio, es fundamental configurar correctamente el entorno:
 * **Contenido:**
     * [cite_start]Código fuente (Python/Java) para cada ejercicio[cite: 18, 22].
     * [cite_start]Documento `DOC_Apellido1Apellido2.pdf` con las justificaciones y diagramas[cite: 23, 24].
+
+
+**Excalidraw**: https://excalidraw.com/#json=XnI1uNBwio5G3T63AkQq4,O-PMY3TUFHxkz5U8KabzIQ
