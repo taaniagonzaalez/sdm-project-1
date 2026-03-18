@@ -1,14 +1,24 @@
 paper_id,title,year,venue,doi,arxiv,citation_count,reference_count
 087c755ff8689e4c5d846f952e9b2ed17dfe99f9,TigerVector: Supporting Vector Search in Graph Databases for Advanced RAGs,2025,SIGMOD Conference Companion,,,12,35
 514e4e91e0fbddaa85857760d4f206a18228d614,CodexGraph: Bridging Large Language Models and Code Repositories via Code Graph Databases,2024,North American Chapter of the Association for Computational Linguistics,,,63,59
-326cecd1e73da6790cc30fafc298489882e20c7f,Top Ten Challenges Towards Agentic Neural Graph Databases,2025,IEEE Data Engineering Bulletin,,,9,87
 3ca49899da83e160280c709288973e9caed30fa2,Text2Cypher: Bridging Natural Language and Graph Databases,2024,COLING Workshops,,,31,37
-730d8b1e289067af593cfbc36c52ec0275507514,Survey: Graph Databases,2025,arXiv.org,,,1,162
 27d0ae215acfaa5914fc13cea20626c9470848c2,Real-Time Text-to-Cypher Query Generation with Large Language Models for Graph Databases,2024,Future Internet,,,22,28
 6e08bd9b6ecb3e3978de66c5f8bd8636367413bc,Understanding Graph Databases: A Comprehensive Tutorial and Survey,2024,arXiv.org,,,20,141
 033275ccc2c7c5c38592ae893da0b5923cf90717,Neural Graph Reasoning: Complex Logical Query Answering Meets Graph Databases,2023,arXiv.org,,,48,171
 459cf4e6476d5e19f1bc422c162bcded54ca7f95,"Experimental Evaluation of Graph Databases: JanusGraph, Nebula Graph, Neo4j, and TigerGraph",2023,Applied Sciences,,,39,10
 3c78b9d672e5bb2e065bcac54b52aa08b94b7321,The importance of graph databases and graph learning for clinical applications,2023,Database J. Biol. Databases Curation,,,13,209
+86e9b0585c8b866665de18b2744d69aefff3e16d,A model and query language for temporal graph databases,2021,The VLDB journal,,,70,71
+1a85628dd645ea86b7c146613651fdb30bb32c1d,The World of Graph Databases from An Industry Perspective,2022,SIGMOD record,,,34,45
+a20e707395132f750fa958ebc0ea629b23b57bfe,An overview of graph databases and their applications in the biomedical domain,2021,Database J. Biol. Databases Curation,,,45,147
+4340043a5a43f1863e080e3fc717f863ad21b51d,Graph Databases,2023,,,,2,0
+1cbbe1a129c0d1f53d8e16ca74238334372507dc,Neural Graph Databases,2022,LOG IN,,,13,191
+d852660e15e82ae150dcde105639ba2c7d90f01f,Graph Databases,2019,Undergraduate Topics in Computer Science,,,240,19
+5abf79226a8ffa2dcf33ca98bfc36c8bb01cc4fc,Multilayer graphs: a unified data model for graph databases,2022,GRADES-NDA@SIGMOD,,,25,32
+59078a26c42e8609244f1c3e01f05af74a3773bf,Inference of Shape Graphs for Graph Databases,2022,International Conference on Database Theory,,,21,54
+85b681e08c9db87dc19a5d5d8664e0027a8e8ad9,Skills2Job: A recommender system that encodes job offer embeddings on graph databases,2021,Applied Soft Computing,,,58,43
+93e6ba25e4c45c3f204a09b6a6b8b02bd3596091,Querying in the Age of Graph Databases and Knowledge Graphs,2021,SIGMOD Conference,,,28,82
+06424dcd3be195738b653d2ee4358d9974f4cb30,GAWD: graph anomaly detection in weighted directed graph databases,2021,International Conference on Advances in Social Networks Analysis and Mining,,,15,33
+703d49a335799262e474ed8fe6044cd641a9e00a,Multi-Dimensional Event Data in Graph Databases,2020,Journal on Data Semantics,,,89,63
 9ab45aa875b56335303398e84a59a3756cd9d530,Graph Retrieval-Augmented Generation: A Survey,,,,,0,0
 830de5d61d5ee31a9b5223c1d9a722bce5e29e52,SingleStore-V: An Integrated Vector Database System in SingleStore,,,,,0,0
 114f5909886f8b505bc75ff179bdaa3a35ed862f,Vector Databases: What's Really New and What's Next?,,,,,0,0
@@ -19,6 +29,16 @@ c1799bf28d1ae93e1631be5b59196ee1e568f538,From Local to Global: A Graph RAG Appro
 899f86566b04e7a79d15cd2df62fbb2e66ec8b75,Survey of vector database management systems,,,,,0,0
 4f662c42b2bd52422b70d8f44175f33cec4f8969,High-Throughput Vector Similarity Search in Knowledge Graphs,,,,,0,0
 40b551e16a75449b8f59c455c9c995ba4da6ab66,The LDBC Social Network Benchmark: Business Intelligence Workload,,,,,0,0
+38e80ecf905f74e734f8177f663310ac74072a99,PG-Schema: Schemas for Property Graphs,,,,,0,0
+28b5df48dd23ffc7e7d64fc43e2a420e05ab88f8,Milvus: A Purpose-Built Vector Data Management System,,,,,0,0
+6d9400b40e092c9d79ff9846b3133b8baf43ac42,AnalyticDB-V,,,,,0,0
+7d88d1b6140af888ec367e7e8c5f7265c87975db,Aggregation Support for Modern Graph Analytics in TigerGraph,,,,,0,0
+b8479ba8d26c593f969598495ddf8a6bf9839f85,PASE: PostgreSQL Ultra-High-Dimensional Approximate Nearest Neighbor Search Extension,,,,,0,0
+37ea01066a563c661587b7c3f50fbf64d1bf311a,Accelerating Large-Scale Inference with Anisotropic Vector Quantization,,,,,0,0
+db6084fdb3baceddacdc726474722debe1ef7e65,TigerGraph: A Native MPP Graph Database,,,,,0,0
+bf6ee0a99c7c52e804485a3dd88506c15d29702c,Neptune,,,,,0,0
+b538999f458a12df98d197befcc4426525cf8237,Efficient Indexing of Billion-Scale Datasets of Deep Descriptors,,,,,0,0
+4748d22348e72e6e06c2476486afddbc76e5eca7,Product Quantization for Nearest Neighbor Search,,,,,0,0
 05fc1d58bd23cb3e7abc47ea2007a09a5378c5f1,Text to SQL AI Agentic Workflow Implementations: A Systematic Literature Review,,,,,0,0
 ba4cbe60dae7a8f6c2366a968b477598c01211ec,Trinity: Disaggregating Vector Search from Prefill-Decode Disaggregation in LLM Serving,,,,,0,0
 bc4d58b1f53368327830aeba343eb62fc106cb30,Leveraging the Graph-Based LLM to Support the Analysis of Supply Chain Information,,,,,0,0
@@ -29,91 +49,8 @@ f68c5b4a096f4278f3539ddc0c4c1d135cfba8c5,LLM + Vector Data: Coupling of Large La
 371689e4350bbdf65fe470780ed9df955b49eab5,LLM+KG@VLDB 24 Workshop Summary,,,,,0,0
 7780dd922e51ae62139ecd275ee6b65802068ae4,Fast Graph Vector Search via Hardware Acceleration and Delayed-Synchronization Traversal,,,,,0,0
 4773398fd2fdf1feddb194aa3e90da270fd3db11,"A Survey of Large Language Models on Generative Graph Analytics: Query, Learning, and Applications",,,,,0,0
-3fe9822c82f1b826e2c6545b2745849e6ee38610,Issue description,,,,,0,0
-ae50c8e255ba55bdbbb05ea470aa63437534438e,Agentless: Demystifying LLM-based Software Engineering Agents,,,,,0,0
-2797cbda8c845504119b62ee25deb1500ec2dfaf,DeepSeek-Coder-V2: Breaking the Barrier of Closed-Source Models in Code Intelligence,,,,,0,0
-c0b6149a7ff72817d5cdb008566dc4f0ca9b9379,MASAI: Modular Architecture for Software-engineering AI Agents,,,,,0,0
-793bbb3c70d4bac3908bd8f2ecc309f1bfdf5f52,GraphCoder: Enhancing Repository-Level Code Completion via Code Context Graph-based Retrieval and Language Model,,,,,0,0
-c7ba780449ad4b377d032a9a304ecc9dd35d8626,On The Importance of Reasoning for Context Retrieval in Repository-Level Code Editing,,,,,0,0
-dae177115f306b7005dde10acbef047b9f20d821,UniOQA: A Unified Framework for Knowledge Graph Question Answering with Large Language Models,,,,,0,0
-81a953de95f4932b6342fa55b2040926b2590e9c,CodeR: Issue Resolving with Multi-Agent and Task Graphs,,,,,0,0
-0e10ac486567f1fe2b0d5f5511e3fb517ead784d,R2C2-Coder: Enhancing and Benchmarking Real-world Repository-level Code Completion Abilities of Code Large Language Models,,,,,0,0
-c8b18682965ff9dccc0130dab3d679f78cefa617,A Survey on Large Language Models for Code Generation,,,,,0,0
-86f2a8525b0b2d06aebad3f6a59744b92134834a,CodeVoyager: Integrating Interactive Visual Aids with LLMs for Code Comprehension,,,,,0,0
-7f452cef78a89a67fd547051357acd2a0c478ae0,KCoEvo: A Knowledge Graph Augmented Framework for Evolutionary Code Generation,,,,,0,0
-44463652fadfce7085ef12356b0d613c6b0c7396,Echo: Graph-Enhanced Retrieval and Execution Feedback for Issue Reproduction Test Generation,,,,,0,0
-e0ca4104e108e41347ca940cb9fa86722b667423,cGenEDA: Code-Generation for Electronic Design Optimization,,,,,0,0
-b238aeccbdc3c44f9bbbda0fef16c7f2d09bda8a,Architecture-Aware Multi-Design Generation for Repository-Level Feature Addition,,,,,0,0
-7e85ad0562a229383ad5d0c4b251afb3745e17c2,FastCode: Fast and Cost-Efficient Code Understanding and Reasoning,,,,,0,0
-b3cf091c989fa494a2360738157016358c5b7afe,SWE-Adept: An LLM-Based Agentic Framework for Deep Codebase Analysis and Structured Issue Resolution,,,,,0,0
-7246c96b649ef5a4feda6c1a0f432cd902b23d15,SGAgent: Suggestion-Guided LLM-Based Multi-Agent Framework for Repository-Level Software Repair,,,,,0,0
-4719603880be81f3400ff5b976b8b2598232e8a8,PseudoAct: Leveraging Pseudocode Synthesis for Flexible Planning and Action Control in Large Language Model Agents,,,,,0,0
-d8b0ab044c2d61e7487a5f7d45e43e616442cae9,Multi-CoLoR: Context-Aware Localization and Reasoning across Multi-Language Codebases,,,,,0,0
-0dcf0c2ebb1c2e5d36e106875256626a85c91986,Intention Knowledge Graph Construction for User Intention Relation Modeling,,,,,0,0
-8810f35b2687050e6ea60328084f0f81b8e43cd0,Neural-Symbolic Reasoning over Knowledge Graphs: A Survey from a Query Perspective,,,,,0,0
-ba61c59abb560ff47a8dd780c8ccffb0af5e14c2,Atom: An Efficient Query Serving System for Embedding-based Knowledge Graph Reasoning with Operator-level Batching,,,,,0,0
-441dbad0518b0786508f02fed66a1c0be1588682,NeurDB: On the Design and Implementation of an AI-powered Autonomous Database,,,,,0,0
-5b5ee67d270929bc93502fb23067080759107a5e,nsDB: Architecting the Next Generation Database by Integrating Neural and Symbolic Systems (Vision),,,,,0,0
-5f9195769eb8ea3ac9ae3d513b4c3123551842ea,COSMO: A Large-Scale E-commerce Common Sense Knowledge Generation and Serving System at Amazon,,,,,0,0
-a28a1e3caf78bdfb04469532b0896b5fa96237f6,A Survey of Distributed Graph Algorithms on Massive Graphs,,,,,0,0
-8d89d38fedfa4a5374c726eb7926510016671441,EventGround: Narrative Reasoning by Grounding to Eventuality-centric Knowledge Graphs,,,,,0,0
-3edcbc6d94721d50a08a5065811d322dc0850f10,Meta Operator for Complex Query Answering on Knowledge Graphs,,,,,0,0
-7226e0479d16203abd18c5c5c1c3f1980ef112c1,Optimizing LLM Queries in Relational Data Analytics Workloads,,,,,0,0
-a1a9aec9e449e28e04157bca948377419a95c351,NGDB-Zoo: Towards Efficient and Scalable Neural Graph Databases Training,,,,,0,0
-8e9faf70146b5fb7d11858af23d6a0df564c002d,NEXT-GEN AI FOR BUSINESS TRANSFORMATION,,,,,0,0
-835d8f81d0232b7dfd14d70b288057241539346d,Toward a Unified Geometry Understanding: Riemannian Diffusion Framework for Graph Generation and Prediction,,,,,0,0
-2a5f2a9b39f3f161dbc22ef4d629407a166d156a,Structuring the Unstructured: A Systematic Review of Text-to-Structure Generation for Agentic AI with a Universal Evaluation Framework,,,,,0,0
-77ce2b9954bab73652a5f96218aa5b81ea4ef6d4,Controllable Logical Hypothesis Generation for Abductive Reasoning in Knowledge Graphs,,,,,0,0
-4f34f9e542b1956f4727dd2680421aed91d18cd3,Efficient and Scalable Neural Symbolic Search for Knowledge Graph Complex Query Answering,,,,,0,0
-a8d29b5c2803855c16c8713f16498f76c54d442e,Enhancing Transformers for Generalizable First-Order Logical Entailment,,,,,0,0
-62d217cb84ab2dc71dba7dc11b04b89186f23e84,KnowShiftQA: How Robust are RAG Systems when Textbook Knowledge Shifts in K-12 Education?,,,,,0,0
-dc4348580ce8166ee15487f30fb517fbe0c8a1f6,Learning Federated Neural Graph Databases for Answering Complex Queries from Distributed Knowledge Graphs,,,,,0,0
-dce7daf3d485e83ae503cfa60e7a0ccce994a764,Testing Gremlin-Based Graph Database Systems via Query Disassembling,,,,,0,0
-0585e7f28f634fcb646ece9bd2b7aa33789efc0a,SyntheT2C: Generating Synthetic Data for Fine-Tuning Large Language Models on the Text2Cypher Task,,,,,0,0
-3265df2c0bdf3a0d68e498fcb38fad6199399b6a,Metasql: A Generate-Then-Rank Framework for Natural Language to SQL Translation,,,,,0,0
-227b5f8206b64858edeef6723b96af14133077e3,Rethinking Benchmark and Contamination for Language Models with Rephrased Samples,,,,,0,0
-de4ca1836923fecd9e8b8ece30b2619f22b2e542,Rel2Graph: Automated Mapping From Relational Databases to a Unified Property Knowledge Graph,,,,,0,0
-2b967d82b25088566980aaaf5a7062d90b2fb14f,GPT4Graph: Can Large Language Models Understand Graph Structured Data ? An Empirical Evaluation and Benchmarking,,,,,0,0
-8f831f341e959955a495730d81996e62c57cc0bd,Can LLM Already Serve as A Database Interface? A BIg Bench for Large-Scale Database Grounded Text-to-SQLs,,,,,0,0
-61b47eb4fea7d0a48cc69758dc6b11411b8fd175,S2CTrans: Building a bridge from SPARQL to Cypher,,,,,0,0
-59fe7cb560651281cfc5db6b8940da0e3ba9dea6,LEVER: Learning to Verify Language-to-Code Generation with Execution,,,,,0,0
-6d51f4b220cb2c8321dc5f9755b7d66f10f1cad6,RESDSQL: Decoupling Schema Linking and Skeleton Parsing for Text-to-SQL,,,,,0,0
-5614260f546e4c31eacecfc820c8541e6193ba05,Managing Design Variants in Formula Student Race Cars: A Digital Engineering Approach Across Multiple Teams,,,,,0,0
-5656356b2c4d680cf4e2b3ecf4c7e23cdd58b6f2,"A Human-in-the-Loop, LLM-Centered Architecture for Knowledge-Graph Question Answering",,,,,0,0
-7d25d381bcd8ec4bc32f1b4270460203c1460abc,Adapter Fusion for Multilingual Text2Cypher with Linear and Learned Gating,,,,,0,0
-9a5958bde6ba74ae6c2e84d0076c890c2e7ca6f0,Grounding Large Language Models in Reaction Knowledge Graphs for Synthesis Retrieval,,,,,0,0
-b274bc52b9a97b0c7c0a7ac281de093603048f0e,Next-Generation Library Information Systems: Evaluating Native Multi-Model Database Technology,,,,,0,0
-b74401096a033521385050753947ce2a48efdcd2,Evaluation of GraphRAG Strategies for Efficient Information Retrieval,,,,,0,0
-b0068061e6d4a208bb40ece3cb79a171f04f7332,A Route Planning Approach with RAG-based LLM and FAISS for Robotic Guide,,,,,0,0
-d45721e1412296bee277dfa6ac831d630da7c424,NatureKG: an ontology and knowledge graph for nature finance with a Text2Cypher application,,,,,0,0
-71172130332d3a3d60e5073beb294bf14429fcdb,Unlocking Electronic Health Records: A Hybrid Graph RAG Approach to Safe Clinical AI for Patient QA,,,,,0,0
-b97f6a51c1a252c217d3c6e8079bd7c474dda71e,"Conversational No-code, Multi-agentic Disease Module Identification and Drug Repurposing Prediction with ChatDRex",,,,,0,0
-839dc7a032719f1279376d6a00ef37b8950f656c,On measuring inconsistency in graph databases with regular path constraints,,,,,0,0
-06f91d7f2c0bddfa5150150a9fe2da9b216acdd0,Mammoths Are Slow: The Overlooked Transactions of Graph Data,,,,,0,0
-513cd3699a0518ba2119f36691d23ccd6de67c0f,"Knowledge Graphs for the Life Sciences: Recent Developments, Challenges and Opportunities",,,,,0,0
-1f1cfad0bf63153e66b2b7fbd455c92a03e9ec04,An Overview of Reachability Indexes on Graphs,,,,,0,0
-420f8b01e0ddd3c3f4c5620acbd71e26275786b5,The Graph Database Interface: Scaling Online Transactional and Analytical Graph Workloads to Hundreds of Thousands of Cores,,,,,0,0
-1a85628dd645ea86b7c146613651fdb30bb32c1d,The World of Graph Databases from An Industry Perspective,,,,,0,0
-d1ae4ab5047489c2b010c7ce72262982ad66ad60,ByteGraph: A High-Performance Distributed Graph Database in ByteDance,,,,,0,0
-da92e27190c3ab99fe0929339ddf178d64d6973e,"Sortledton: a universal, transactional graph data structure",,,,,0,0
-99f36fbc03755b79e1a9c58069b43a284fc6e493,Combining Time-Series and Graph Data: A Survey of Existing Systems and Approaches,,,,,0,0
-643d91c63b3dbaaadb57f5b4fcf2ca33a84c3759,"Robust Text-to-Cypher Using Combination of BERT, GraphSAGE, and Transformer (CoBGT) Model",,,,,0,0
-9ab64201d0436433cc4fb37670567360a69d2eb9,Text-to-ESQ: A Two-Stage Controllable Approach for Efficient Retrieval of Vaccine Adverse Events from NoSQL Database,,,,,0,0
-94ce1d5924e05e8d75e43ce70044293ddcef850a,Large language models in medicine,,,,,0,0
-8520e03f77dc068bef97c2c23c96a55dc6420095,SpCQL: A Semantic Parsing Dataset for Converting Natural Language into Cypher,,,,,0,0
-d53e70d834243d3d8d4b621c0c52dfec26081155,An Information-theoretic Approach to Prompt Engineering Without Ground Truth Labels,,,,,0,0
-c1ffa773f29e567e13b00495767f8c42e2bb44b2,A Contrastive Framework for Neural Text Generation,,,,,0,0
-0a22b5df6c1c25b776d1015e9490974ed704c044,ER-SQL: Learning enhanced representation for Text-to-SQL using table contents,,,,,0,0
-dcc4e0571f8993a01ac9b4a42f711a41994d4fc9,Natural Language Query for SCD File,,,,,0,0
-ffdbd7f0b03b85747b001b4734d5ee31b5229aa4,The Power of Scale for Parameter-Efficient Prompt Tuning,,,,,0,0
-9619cde5c79d91ca5c432186668618312175f8dd,Querying knowledge graphs in natural language,,,,,0,0
-02e343eac6a848d528dc84aa53e3cdaaf7df0ae6,A self-correcting Agentic Graph RAG for clinical decision support in hepatology,,,,,0,0
-1164e5389bd8d355d379c3e07c0f956b55e7a5eb,Knowledge Graph Enrichment and Reasoning for Nobel Laureates,,,,,0,0
-328c900236f9ff048ce76538b88b85eeb9229ab2,Multi-Agent GraphRAG: A Text-to-Cypher Framework for Labeled Property Graphs,,,,,0,0
-9c12622ae7ffa272785ee6140755c89c34a4bfc9,How to Leverage Agentic AI and Knowledge Graphs to Enhance Overall Equipment Efficiency (OEE),,,,,0,0
-02da4fe77a2498af37624cdd9b70f1f5e7fc2ff5,Prompting large language models based on semantic schema for text-to-Cypher transformation towards domain Q&A,,,,,0,0
-806feeaecf85d390eedef87ac0812045ca5e8000,AskGraph: A Dependency-Aware Code Assistant Powered by Code Graphs and LLM-Generated Cypher Queries,,,,,0,0
-f0731c354d852f1703c270cc85ff6e6d206a222e,Leveraging Knowledge Graphs and LLM Reasoning to Identify Operational Bottlenecks for Warehouse Planning Assistance,,,,,0,0
+ca6dfc91d4cca2f4677a68d8301c1928bb08519e,Unifying Large Language Models and Knowledge Graphs for Question Answering: Recent Advances and Opportunities,,,,,0,0
+115b93272e0311e5e7f2ca2108b0cdf7ea4fa6cd,"Converging Hypermedia, Protocols, and Knowledge Architectures: A New Paradigm for Grounded and Interoperable LLM-Agent Systems",,,,,0,0
 4ee40843d9d8d25aa2d08c609a4b21dcc94b2d48,Dynamic Portfolio Rebalancing: A Hybrid new Model Using GNNs and Pathfinding for Cost Efficiency,,,,,0,0
 8d2e00512c93ac7728bfcdadefae7db2d41610e3,Efficiency Analysis of Conventional and Weighted Grid-Based Pathfinding Algorithms: A Performance Comparative Study,,,,,0,0
 81f6f86fa65264b49400fad3d4c418a337ffd58e,Can Deep Learning Large Language Models be Used to Unravel Knowledge Graph Creation?,,,,,0,0
@@ -124,7 +61,48 @@ a41ddeb4a2397965061700748ff2e32555208588,Financial fraud detection using graph n
 bba0ace4ac6be857f2285884a4087bf29b68a0c0,Cardinality Estimation of Subgraph Matching: A Filtering-Sampling Approach,,,,,0,0
 911247dddb66d1f3ef3ba3235861bd707d15b9ad,Towards Data-centric Graph Machine Learning: Review and Outlook,,,,,0,0
 ddcf3073e09b42f2fab83861180ed5841ae13cdf,Square Distance in Graphs,,,,,0,0
+d8a65564f65e68968f08d209286a9e2d7c8838f3,Data-To-Question Generation Using Deep Learning,,,,,0,0
+d6f907bd780b866cf5c836c2e18ddca61165fa2d,EXTRACT and REFINE: Finding a Support Subgraph Set for Graph Representation,,,,,0,0
+ee7d7a3732360144aa635058e5870db6028625cb,A Survey on Graph Classification and Link Prediction based on GNN,,,,,0,0
+02033e83ff310f35e4623bd339982c52d926f2d5,Give us the Facts: Enhancing Large Language Models With Knowledge Graphs for Fact-Aware Language Modeling,,,,,0,0
+f5899c93c554dd37c737fb4ca2efdd09e4b6068e,Knowledge Graph Enhanced Sentential Relation Extraction via Dual Heterogeneous Graph Context Selection,,,,,0,0
+eee8c5a828fc952562eb9bb31f8b2cbd3aadc394,Learning Graph Databases: Neo4j an overview,,,,,0,0
+905b7558b7b98d56fe5ddaccf328022fd76683d7,Network analysis with the aid of the path length matrix,,,,,0,0
+7a5339aec1b643924ffd60e7bc0e2660fcc1e538,Near-Storage Accelerator for Bulk Graph Ingestion,,,,,0,0
+f3dc5118e705a2d783825ffb673d3d4812f1a53e,Graph-Optimizer: Towards Predictable Large-Scale Graph Processing Workloads,,,,,0,0
+62a32546e734215ac9a699b281b9e056d1b1f22d,Example-based explanations for streaming fraud detection on graphs,,,,,0,0
+2b992a76049e8a0166ee59e159d77cc7e91a7fab,Inductive Link Prediction Banking Fraud Detection System Using Homogeneous Graph-Based Machine Learning Model,,,,,0,0
+19d6eb8e60055418a8faefdb2d49ac879570ea40,Deep Learning with Graph Convolutional Networks: An Overview and Latest Applications in Computational Intelligence,,,,,0,0
+4d4f41fa429f37ce41de0422938affb7805cf9a8,Everything is Connected: Graph Neural Networks,,,,,0,0
+22414648cdde723c20973ab72c2a81740452f9ee,Data Fusion and Graph Analysis in Fraud Transaction Detection: walkthrough of a case study,,,,,0,0
+c0df3f7e79f934a4fa20e4ad17559aaf65b9f8be,A Shortest Path Graph Attention Network and Non-traditional Multi-deep Layouts in Robotic Mobile Fulfillment System,,,,,0,0
+5534c3b8bfe03ec0ee3ea3aafd0a4471b07f8b7d,Query-based Performance Comparison of Graph Database and Relational Database,,,,,0,0
+1cb5c0940b04fcaaa03fbe3e7928a9602b202d05,GraphRC: Accelerating Graph Processing on Dual-addressing Memory with Vertex Merging,,,,,0,0
+bd07c092ffae1bf4935a79da513208bf4dfa77dd,Machine Learning-based Selection of Graph Partitioning Strategy Using the Characteristics of Graph Data and Algorithm,,,,,0,0
+a1fec6619d18bd7105ff2a8d6d63a4759f646727,Graph Similarity Based on Matrix Norms,,,,,0,0
+1c4cd724c090e29187e82668ff4147b4c0115edf,Resilience Analysis of New York City Transportation Network After Snow Storms,,,,,0,0
+5b548806b70e30c6c343ede91a03b9cddd72a45d,On some studies of Fraud Detection Pipeline and related issues from the scope of Ensemble Learning and Graph-based Learning,,,,,0,0
+2fd2b6dfaafaaf2494cc9168b7310e071a4c654c,Towards Enhancing the Robustness of Scale-Free IoT Networks by an Intelligent Rewiring Mechanism,,,,,0,0
+1a355da1d3f5149bd7bb4adcb7d8d397828f3ee7,On the rank of the distance matrix of graphs,,,,,0,0
+3633f23a879c22698357acd0d183b85342b9d8a1,KGNN: Harnessing Kernel-based Networks for Semi-supervised Graph Classification,,,,,0,0
+4fa31616b834c377c4995c346a2b17464f25692a,Graph Neural Networks for Recommender System,,,,,0,0
+5cfb081ba32c23b5731f44973e5cc365a42f9acb,Graph Rewriting Techniques in Engineering Design,,,,,0,0
+6e2c8dca283232f892c0cc756512f77798404ee7,Temporal Pattern Recognition in Graph Data Structures,,,,,0,0
+205ee08051c83ae659b779e69f17a83329ed222c,Plug-and-Play Networks: Adding Vertices and Connections to Preserve Algebraic Connectivity,,,,,0,0
+d1d4b6d86ac89daf2be81cc1b4cef3d762e8cef6,A circular layout algorithm for attributed hierarchical graphs with ports,,,,,0,0
+171eea6741f15c64b605d1d080a7336925b7bd5c,Improving graph neural network for session-based recommendation system via non-sequential interactions,,,,,0,0
+907478c317502f6adbf7b1179c95d20486e9f64e,Fraud Detection Based on Graph Neural Networks with Self-attention,,,,,0,0
+37a0280b5c50523644b7bf6294a928cf4ef341de,Catalytic and binding sites prediction in globular proteins through discrete Markov chains and network centrality measures,,,,,0,0
+2c0e0440882a42be752268d0b64243243d752a74,A Gentle Introduction to Graph Neural Networks,,,,,0,0
+017324b274bb0e0338484723e4fdde85e7b5c0f1,"A Comparative Study of MongoDB, ArangoDB and CouchDB for Big Data Storage",,,,,0,0
+30a6f758dd1b2d69ef90263ec048d28bea22b4bd,Enterprise Analytics using Graph Database and Graph-based Deep Learning,,,,,0,0
+79a70216035894b11489942be94ccbf6fa06f008,Graph-Aware Collaborative Filtering for Top-N Recommendation,,,,,0,0
+fecd5bd7c6ffd7b1c9efca939113de8b7054af5d,GraphScope: A Unified Engine For Big Graph Processing,,,,,0,0
+e1764d640f75c19dd0e77aa34ff416704a373185,M_n – Polynomials of Some Special Graphs,,,,,0,0
+f800291797b105ea74eff58649a2eb6a5bf4e1e9,General degree distance of graphs,,,,,0,0
+d596ac251729fc3647b08b51c5208fdf5414c7c1,Combinatorial optimization and reasoning with graph neural networks,,,,,0,0
 18be2417562b05187db186de687a1c2fc120d18a,COTRA: A Data Trading Framework for Multi-Source Data Cooperation,,,,,0,0
+99f36fbc03755b79e1a9c58069b43a284fc6e493,Combining Time-Series and Graph Data: A Survey of Existing Systems and Approaches,,,,,0,0
 2caabee00799e2ea0b6ba4ef8cf734d2163d2953,A Graph Data Model for CityGML Utility Network ADE: A Case Study on Water Utilities,,,,,0,0
 9d5753c117f1ba931ffe594aa58ad32208679a23,PG-HIVE: Hybrid Incremental Schema Discovery for Property Graphs,,,,,0,0
 2d9c5645a5e0b698827dac1fdd585b7a8fe19ded,Governança de Dados em Sistemas-de-Sistemas: Uma Abordagem Orientada à Dados de Proveniência,,,,,0,0
@@ -133,60 +111,171 @@ db0f1d63f8fc50f056d2742fb0210277697208cb,Multimodal Data Storage and Retrieval f
 42a5558d00f141ed1b5e87579abd0e8c26deb19d,Graph-based Method for Detecting Fraud Regarding Activity Relationships in Business Process Models,,,,,0,0
 20bdb4a2113972ce4f3cc809dafc52ac7c60e338,Graph Databases in Web Applications for Analyzing the Network,,,,,0,0
 d3ef3ae3f68f473c6bb8ef77242403454821b650,Knowledge Graphs as World Models for Semantic Material-Aware Obstacle Handling in Autonomous Vehicles,,,,,0,0
-7d275bb20b36926e039fb604f9fb93340a70e63c,Efficient Embeddings of Logical Variables for Query Answering over Incomplete Knowledge Graphs,,,,,0,0
-b45ea6ddc9d964116addaf1dafd0641d78a6228e,Sequential Query Encoding For Complex Query Answering on Knowledge Graphs,,,,,0,0
-2029349c55c1dba3493c5b3bd25152f18ba21ae2,Augmented Language Models: a Survey,,,,,0,0
-fd2be70debe968d67514507c1bc362c78867ff15,Neurosymbolic AI for Reasoning Over Knowledge Graphs: A Survey,,,,,0,0
-3f4dff0c50a2edc4d38973669f8459449f114e28,A Theory of Link Prediction via Relational Weisfeiler-Leman,,,,,0,0
-76b042a91efd3d8f61e44f421b1839cb0d9fc309,Generalizing to Unseen Elements: A Survey on Knowledge Extrapolation for Knowledge Graphs,,,,,0,0
-a43425af7413e62c816a8fc007ab443465761829,Unifying Structure Reasoning and Language Pre-Training for Complex Reasoning Tasks,,,,,0,0
-e7139f6831f32bff95c1a9cfc9b10ec4f24ce36b,Logical Message Passing Networks with One-hop Inference on Atomic Formulas,,,,,0,0
-6845bea94b2fb17d4377b3bb2bd10f73a959f9cc,Reasoning with Language Model Prompting: A Survey,,,,,0,0
-5ccc962347e31f21482ba534cb1772e6e1e3ae02,Answering Complex Logical Queries on Knowledge Graphs via Query Computation Tree Optimization,,,,,0,0
-9dd417ebce64cb6077a5120ed46e02487ad48170,HEHRGNN: A Unified Embedding Model for Knowledge Graphs with Hyperedges and Hyper-Relational Edges,,,,,0,0
-e6f2154c92e1a8f225c70ed349eb6e07bbd4acae,CQD-SHAP: Explainable Complex Query Answering via Shapley Values,,,,,0,0
-2b169b44a02edb379fd4e71fc10be310df3cb5a3,Representation Learning in Complex Logical Query Answering on Knowledge Graphs: A Survey,,,,,0,0
-d63103e277745ee2be4a9eb2a84cd4ef0eac39a0,Prediction of Implicit Relationships Using Uncertain Knowledge Graph Embedding and Bayesian Networks,,,,,0,0
-56ab548520008ed8c972351eb6f67eacc72f1f33,The Discovery Engine: A Framework for AI-Driven Synthesis and Navigation of Scientific Knowledge Landscapes,,,,,0,0
-85bd0a8ddc3723b427625c61e01897ec36b8b8ea,MPRM: A Markov Path-based Rule Miner for Efficient and Interpretable Knowledge Graph Reasoning,,,,,0,0
-2316e3d840a6ceb3045e66139629222b543e2504,Transformers for Complex Query Answering over Knowledge Hypergraphs,,,,,0,0
-69affe0c047de69efaf450695b9facfcd861529e,Spherical Embeddings for Atomic Relation Projection Reaching Complex Logical Query Answering,,,,,0,0
-44493e316c6f680d5f69b994f1b827a0f12eb565,Intelligent Big Data Framework for the Technical Design of Public Management Applications in Sports,,,,,0,0
-17dc39b7af3ca5d2563502c4b7e5f72e0002afeb,Analyzing The Encountered Problems and Possible Solutions of Converting Relational Databases to Graph Databases,,,,,0,0
-35bcb89ea25012f0440116f1290576ed4347b5dd,Comparative Analysis of Graph Databases for Git Data,,,,,0,0
-a20e707395132f750fa958ebc0ea629b23b57bfe,An overview of graph databases and their applications in the biomedical domain,,,,,0,0
-85487a0b532786fa399a5a8014443bfd70ed3592,Comparison of Querying Performance of Neo4j on Graph and Hyper-graph Data Model,,,,,0,0
-f295157f37cfb43cd8d8d2690ea124edc5ea59c2,Beyond Macrobenchmarks: Microbenchmark-based Graph Database Evaluation,,,,,0,0
-92abcaed88e73a619cab2a8d07a8ff2da4209485,A Comparative Study of NoSQL and Relational Database,,,,,0,0
-f3e765ca2b8c4191759b141d2e5c42215ed9090d,The Suitability of Graph Databases for Big Data Analysis: A Benchmark,,,,,0,0
-bcca5c7e9180c4890936343d79e812cb16cbefb6,"Graph Databases Comparison: AllegroGraph, ArangoDB, InfiniteGraph, Neo4J, and OrientDB",,,,,0,0
-c867c372ed78e27c53feaf788e74aa7506302bbe,Graph Databases: Neo4j Analysis,,,,,0,0
-53516c4ee7b757538973470e8cd9f266906bbb24,An intelligent decision support framework for generating flood control emergency plan using knowledge graph and fuzzy enhanced entity recognition model,,,,,0,0
-1a5c5437511d6dd0f4ae16ef38dc140fa2b4ef3e,Text-based automatic knowledge graph construction for road infrastructure operations management,,,,,0,0
-0a4c387e78472bb69c3429319463571dae38dba5,Construction and application of knowledge graph for seed quality standard documents,,,,,0,0
-6e86f1f8055cbbbf558f7bf102599967965c235b,Enhancing knowledge graph interactions: A comprehensive Text-to-Cypher pipeline with large language models,,,,,0,0
-c975161b5032ef3f1b781529207e2cfe56e3a7bd,Big data fusion-driven geospatial knowledge graph construction method for sustainable smart cities,,,,,0,0
-74c4774c8899840b3b0d87669c265de207a7df93,MODELING OF SPATIAL SITUATIONS AS GEOSEMANTIC IMAGES BASED ON THE GRAPH OF GEOSPATIAL KNOWLEDGE,,,,,0,0
-8141d758fc7bc6a40711d0bb4b8c20a6f753b389,EvalCouncil: A Committee-Based LLM Framework for Reliable and Unbiased Automated Grading,,,,,0,0
-0506740b4d949910d416a9dfc85160fb9c4af596,Fog Computing and Graph-Based Databases for Remote Health Monitoring in IoMT Settings,,,,,0,0
-1b17f3233d31ee83408b692d79916592ba06fedc,"Evaluation of the Impact of AES Encryption on Query Read Performance Across Oracle, MySQL, and SQL Server Databases",,,,,0,0
-e95cbea9452e6c8ff0f4177b92d9968c9ebb9926,Semantic-Aware Fusion of Mineral Exploration Knowledge Streams Towards Dynamic Geological Knowledge Graphs,,,,,0,0
-ceab9c17a9ee03d5b4d017022b4f611970cebf64,Functional Integration and Separation of Brain Network Based on Phase Locking Value During Emotion Processing,,,,,0,0
-ea5ac60d4491dbc8db6cc55a694a2b0c421c852a,Internet of things and machine learning applied to the thermal comfort of internal environments,,,,,0,0
-67efb88303dd21ca3729f526117f4c1ff9deacd5,Medical Knowledge Graph Completion Based on Word Embeddings,,,,,0,0
-2458bc95505bce3d3eca7c90b4f0bc0553249037,Contrastive Graph Learning for Population-based fMRI Classification,,,,,0,0
-9b18fbe281496ad72bdd18e0a5883d235ebdfd87,"Biolink Model: A universal schema for knowledge graphs in clinical, biomedical, and translational science",,,,,0,0
-c2a2bd4bdc0e3afde232c652b744cd305863e4e3,SSGCNet: A Sparse Spectra Graph Convolutional Network for Epileptic EEG Signal Classification,,,,,0,0
-9d2b167ae11edffd944c22de4225a711111d1e2e,Message passing all the way up,,,,,0,0
-ec61bc70c26436eeac63637b75ce4ab0127561aa,Temporal Knowledge Graph Completion: A Survey,,,,,0,0
-38760be511d0883154babd114b799a38d6fae47d,CGENet: A Deep Graph Model for COVID-19 Detection Based on Chest CT,,,,,0,0
-9a5c9c4bafee0c1f4ccbae1aec15b820f12b6da3,Identification of Depression with a Semi-supervised GCN based on EEG Data,,,,,0,0
-a9c6bae3a395a4e7a81a5292ce48dd450705f80b,A Novel Prediction Model for Multimodal Medical Data Based on Graph Neural Networks,,,,,0,0
-c0e2a3e64ff1d26fe5b365e2c55367f2705fa0a4,From Black Box to Discovery Engine: A Geometric and Topological Framework for Interpreting Graph Neural Networks in Critical Care,,,,,0,0
-d0598ab845cb3cdd06b124b1ae9ff47df067879e,A Neo4j-Based Framework for Integrating Clinical Data with Medical Ontologies: Performance Optimization and Quality Measure Applications in Healthcare,,,,,0,0
-7b148037129dd241fc9d1ce1f2ab0f0af282c061,Edges are all you need: Potential of medical time series analysis on complete blood count data with graph neural networks,,,,,0,0
-a55a381fcbc9779675dddc549b3e3ea17ae89772,Metaproteomics in the One Health framework for unraveling microbial effectors in microbiomes,,,,,0,0
-546c65930179d632fac1078a62336370da142a29,A Graph-Centric Neuro-Symbolic Architecture Applied to Personalized Sepsis Treatments,,,,,0,0
-94e267a8ba62a8ec1918e7a3cb09257ed5f3684d,KG-Infused LLM for Virtual Health Assistant: Accelerated Inference and Enhanced Performance,,,,,0,0
-f6a443910aebbbbb3d21dfe723246c08a040e76e,Transforming Healthcare Data Management with NoSQL: A New Era of Scalability and Efficiency,,,,,0,0
-6e4f07cb0fc8b2d0ca29483859b63e85772e5e20,Microbiome modeling: a beginner's guide,,,,,0,0
+016e01d89cfcdc0bf8739cbde3f8dea2d25f69d5,Leveraging technology in internal audit processes for streamlined management and risk oversight,,,,,0,0
+efdfd6ac157c1d971a0321336e3546d95ea81c37,Fraud detection in healthcare billing and claims,,,,,0,0
+2d4caf25fd89e955a667ce52476654f5a1285a25,Restorative justice practices: Bridging the gap between offenders and victims effectively,,,,,0,0
+e519a9dca367a6a4ab0dcd2f3c1b381802be5893,Risk Based Security Models for Veteran Owned Small Businesses,,,,,0,0
+1e6dc077ea425862d9b52ed7a1c0f240794194c7,US intellectual property law and its impact on business: Recent developments and trends,,,,,0,0
+be844a7b0883929fa10da456d3bedcb223e97a11,Cultivating Participatory Learning Ecologies: Social Network Analysis of Peer-Driven Learning Network,,,,,0,0
+eb14be4b8ff41e9497ce355ecf94fd17cfc91bb3,Ponzi Scheme Detection for Smart Contracts Based on Oversampling,,,,,0,0
+1166d9647cff004cadd677bcb5a580e86c593826,The Role of Medicaid Expansion in Improving Access to HIV Prevention and Treatment Services in Rural and Low-Income Communities,,,,,0,0
+0a112f4105b3117de5617a01c31acd8f31dadfb3,Embodied AI with Knowledge Graphs: Material-Aware Obstacle Handling for Autonomous Agents,,,,,0,0
+f864d350a469083de36d64c01c7742452e0e771b,GRASP-ChoQ: Knowledge Graph-Based Retrieval Augmentation for Stance Detection in Political Texts with Chain-of-Questions Reasoning,,,,,0,0
+7e3b8a70d72a0ba4c7f189991d912822a1f2959d,ProbGraph: High-Performance and High-Accuracy Graph Mining with Probabilistic Set Representations,,,,,0,0
+8018a561d2ed821cfb4be7ce04993cabf9932c2f,Parallel and Distributed Graph Neural Networks: An In-Depth Concurrency Analysis,,,,,0,0
+fae835d155ab7a11361a56ce811a3f7620833e55,I/O-Optimal Cache-Oblivious Sparse Matrix-Sparse Matrix Multiplication,,,,,0,0
+1a03e26592d46d1533e97ba3030ae900ec4d1669,"ERMer: a serverless platform for navigating, analyzing, and visualizing Escherichia coli regulatory landscape through graph database",,,,,0,0
+d43acd18e8ddabba5c35e88788723ab8d18345da,BNS-GCN: Efficient Full-Graph Training of Graph Convolutional Networks with Partition-Parallelism and Random Boundary Node Sampling,,,,,0,0
+286d371febea99ec19044e69e163e8bd53137a7f,PipeGCN: Efficient Full-Graph Training of Graph Convolutional Networks with Pipelined Feature Communication,,,,,0,0
+4aaff01365a68968e7f17a820fe579177a90899b,Distributed Hybrid CPU and GPU training for Graph Neural Networks on Billion-Scale Heterogeneous Graphs,,,,,0,0
+c0cd4b4844c31a27a7900a754d0a91b160b00e55,Advancing mathematics by guiding human intuition with AI,,,,,0,0
+454304628bf10f02aba1c2cfc95891e94d09208e,Graph Neural Networks with Learnable Structural and Positional Representations,,,,,0,0
+cda969fd7362bdf21aa1f3398078982dcb350d76,"Are we really making much progress?: Revisiting, benchmarking and refining heterogeneous graph neural networks",,,,,0,0
+e30b7efdac918fbbefc683854d37042dd3a288f0,A survey on heterogeneous network representation learning,,,,,0,0
+dc32a984b651256a8ec282be52310e6bd33d9815,Highly accurate protein structure prediction with AlphaFold,,,,,0,0
+8401b22a88e826e758ffc136bfc411a51216e594,Parallel Algorithms for Finding Large Cliques in Sparse Graphs,,,,,0,0
+3947688522579f2c657dd8323f30466fa10f979d,Learning Combinatorial Node Labeling Algorithms,,,,,0,0
+07aa07cb6791f336cb32643d54201eab295b2757,A graph placement methodology for fast chip design,,,,,0,0
+cdf4f091c99127c779a3a24f6ec7fb55cc1b8c3f,Motif Prediction with Graph Neural Networks,,,,,0,0
+14014c024674991149f3ecf9314c93f7e029ef1a,"Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges",,,,,0,0
+3308eeac303fd042f8d7659d9c43faa35173c39b,Seastar: vertex-centric programming for graph neural networks,,,,,0,0
+5984a0b6957b0e9ed8b030c3784f3ec367fbfd8c,SISA: Set-Centric Instruction Set Architecture for Graph Mining on Processing-in-Memory Systems,,,,,0,0
+6957a14503962507e54ba81f6de389c1d4f3efc6,GraphMineSuite: Enabling High-Performance and Programmable Graph Mining Algorithms with Set Algebra,,,,,0,0
+758294483c308d9d6028321f0741b6e4617c9ab9,Weisfeiler and Lehman Go Topological: Message Passing Simplicial Networks,,,,,0,0
+f043d2f6b8c9e631098d63f672fcf440adfab281,SeBS: a serverless benchmark suite for function-as-a-service computing,,,,,0,0
+a11828bb8b2e5f1644360567f0e46d20de342ad6,"A Survey on Heterogeneous Graph Embedding: Methods, Techniques, Applications and Sources",,,,,0,0
+0a69c8815536a657668e089e3281ff2e963d947a,Design Space for Graph Neural Networks,,,,,0,0
+3443efc855cebd17d1512d1a703b6e9ee2e4da8b,Graph Neural Networks in Recommender Systems: A Survey,,,,,0,0
+9e20f6874feaaf7c9994f9875b1d9cab17a2fd59,Learning Mesh-Based Simulation with Graph Networks,,,,,0,0
+16965c78c57f6ae3a1f9cf0bc66c4f13977a5f25,RDF2Vec Light - A Lightweight Approachfor Knowledge Graph Embeddings,,,,,0,0
+45f4585f12ed7310c2dbc487a2aa1ba23c568071,Graph Representation Learning,,,,,0,0
+248031105cc00737877ded134852d0edeb43b73c,FeatGraph: A Flexible and Efficient Backend for Graph Neural Network Systems,,,,,0,0
+a1124bbff30af32e9fe5bee6c4fa0cdcef5e7356,"High-Performance Parallel Graph Coloring with Strong Guarantees on Work, Depth, and Quality",,,,,0,0
+c50e20fd223807a6a692103bcd5530f0388c15e7,GRIP: A Graph Neural Network Accelerator Architecture,,,,,0,0
+441068ef17c3332d4f0af6c146e37bd8748bb90e,A Survey on Graph Neural Networks for Knowledge Graph Completion,,,,,0,0
+df02209677b32692b90e4831d4e5c1c14c13cff8,Scaling Graph Neural Networks with Approximate PageRank,,,,,0,0
+7ccbe9525f69449b2eaaa86a7b3947b1d965e9c2,GNNAdvisor: An Efficient Runtime System for GNN Acceleration on GPUs,,,,,0,0
+83e89d56d0d0e1dfd8b52213e6cc2e191aaaf34b,Machine Learning on Graphs: A Model and Comprehensive Taxonomy,,,,,0,0
+6dcf5882576153d3d80945d7013acd1b9ef140c7,Reducing Communication in Graph Neural Network Training,,,,,0,0
+68f34ed64fdf07bb1325097c93576658e061231e,"A Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks",,,,,0,0
+8c879b8afef2184dc75f7ff9923fd78be8c0af30,Substream-Centric Maximum Matchings on FPGA,,,,,0,0
+80ba6bcc8068556359c7193c22d941e3b0b29e6e,Heterogeneous Network Representation Learning: A Unified Framework With Survey and Benchmark,,,,,0,0
+84b8ff51c8fe57426a56d0adca99495d4fce0f4c,Realistic Re-evaluation of Knowledge Graph Completion Methods: An Experimental Study,,,,,0,0
+9d5dbe7230161db2d3573c3d5e7868dda42a6d3e,"Improving the Accuracy, Scalability, and Performance of Graph Neural Networks with Roc",,,,,0,0
+6fb8b967dad742eb390a3090f094a12f2d909538,A Survey on The Expressive Power of Graph Neural Networks,,,,,0,0
+0ca7d8c3250d43d14fdde46bf6fc299654d861ef,Heterogeneous Graph Transformer,,,,,0,0
+bb44a2ab0bfd5027a206758d3a28e31f5829a2a3,AGL,,,,,0,0
+60d8db6839e860e6e787e47df55f672b8f1fa873,Bridging the Gap between Spatial and Spectral Domains: A Survey on Graph Neural Networks,,,,,0,0
+c529f5b08675f787cdcc094ee495239592339f82,Learning to Simulate Complex Physics with Graph Networks,,,,,0,0
+7c78452937f1ba2d332c98bf4e8254188c0f1266,A Comprehensive Survey on Geometric Deep Learning,,,,,0,0
+c7fd29fdd2e0b50a571db4f607eab138e9ecb644,MAGNN: Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding,,,,,0,0
+f3058ac35927720d2a229984b10524e36d87d7dc,HyGCN: A GCN Accelerator with Hybrid Architecture,,,,,0,0
+db0b44855b14533a22dbbd09f24f62a08cedef80,"Practice of Streaming Processing of Dynamic Graphs: Concepts, Models, and Systems",,,,,0,0
+a1a9aec9e449e28e04157bca948377419a95c351,NGDB-Zoo: Towards Efficient and Scalable Neural Graph Databases Training,,,,,0,0
+8572b13f01fa9fc234228702de0a021e38c21e65,Bi-View Embedding Fusion: A Hybrid Learning Approach for Knowledge Graph's Nodes Classification Addressing Problems with Limited Data,,,,,0,0
+0dd2b81253fe5e3f03af90f051c38cd2b2c5180a,Improving Graph Embeddings in Machine Learning Using Knowledge Completion with Validation in a Case Study on COVID-19 Spread,,,,,0,0
+6492da4ac426417f1f74e8569ce7498657e31f1c,Affordable AI Assistants with Knowledge Graph of Thoughts,,,,,0,0
+326cecd1e73da6790cc30fafc298489882e20c7f,Top Ten Challenges Towards Agentic Neural Graph Databases,,,,,0,0
+f80e5420b746a69cb6cada0439e7a949be37e14c,Graph Neural Networks on Graph Databases,,,,,0,0
+897f0a4aa81dac2ab2679541032fcdf7b8c7eff5,Deep Learning Enabled Graph Database for Complex Queries,,,,,0,0
+7e648117ba6f69c05839600ba6e185fd71cab854,Demystifying Higher-Order Graph Neural Networks,,,,,0,0
+dc4348580ce8166ee15487f30fb517fbe0c8a1f6,Learning Federated Neural Graph Databases for Answering Complex Queries from Distributed Knowledge Graphs,,,,,0,0
+eff9d7ed06f30f121d30ee13802a11f172ef66f4,"Demystifying Chains, Trees, and Graphs of Thoughts",,,,,0,0
+aade40af0d85b0b4fe15c97f6222d5c2e4d6d9b3,Graph of Thoughts: Solving Elaborate Problems with Large Language Models,,,,,0,0
+9d6fa9cd4dfc8fff9d043c9156ca7e3d2a86648b,Sparse Hamming Graph: A Customizable Network-on-Chip Topology,,,,,0,0
+6948cec2c9973a126bb4ca5967905d97c139c9d9,"Scenario-based process querying for compliance, reuse, and standardization",,,,,0,0
+b5599266c3b2f29941383cc786921b7815562a97,Event Data and Queries for Multi-Dimensional Event Data in the Neo4j Graph Database,,,,,0,0
+872cf937ebadc95097068495e3bb5a7ae131b512,Object-Centric Process Mining: Dealing with Divergence and Convergence in Event Data,,,,,0,0
+17e8108ad1335ae221ca1c9276d514a53d7af021,Storing and Querying Multi-dimensional Process Event Logs Using Graph Databases,,,,,0,0
+38e3efe94ce47a4ce44c98cf4316108c2c20eeb9,Discovering Process Models from Uncertain Event Data,,,,,0,0
+542d6333ba02aac177556ee86d66483f33b668a1,Describing Behavior of Processes with Many-to-Many Interactions,,,,,0,0
+e349ad0c820e145e6146a3be2f05c67c1685827a,Using graph data structures for event logs,,,,,0,0
+5694e5f46b608632d64a6052b84e6ff57d769ffd,Enabling efficient process mining on large data sets: realizing an in-database process mining operator,,,,,0,0
+5db00cdd5ac582952af5ac4b344c9b13dfce45a2,Process mining on databases: extracting event data from real-life data sources,,,,,0,0
+2e155133e3f1f1cd2594232ff41e06257c927156,Extracting Multiple Viewpoint Models from Relational Databases,,,,,0,0
+23a5984c058d585743a114991d9f59d192c74fed,Querying Graphs,,,,,0,0
+ab0f556a209b2c33b3dabc8699759e14604cf3fa,Extracting Object-Centric Event Logs to Support Process Mining on Databases,,,,,0,0
+7c70459d56214a7a3202732670f5ce726508eff6,Cypher: An Evolving Query Language for Property Graphs,,,,,0,0
+98de905bd3094e8d064e76aa4b6fff429fc387dc,Split miner: automated discovery of accurate and simple business process models from event logs,,,,,0,0
+8b50fef7d8c23a6b9f8a27c05a833c32060548f6,ProcessAtlas: A scalable and extensible platform for business process analytics,,,,,0,0
+ce2a41d31657c32a4945d79d5902b1576fed3ad8,G-CORE: A Core for Future Graph Query Languages,,,,,0,0
+86df18bb1a8747ea76a5fca622eae2b44e1948b6,From Relational Database to Event Log: Decisions with Quality Impact,,,,,0,0
+18f16a1c724f9f9a4a11560a310c492b83d29b22,Redo Log Process Mining in Real Life: Data Challenges & Opportunities,,,,,0,0
+69226b6f524f14456ac0761a706a839e940ee114,Querying Workflow Logs,,,,,0,0
+c1b8571e177189a9076c2c7186a535084af6fa1c,Lecture Notes in Business Information Processing,,,,,0,0
+6c993f8b27ff655832715ed407c328899c28ec23,Automated Discovery of Process Models from Event Logs: Review and Benchmark,,,,,0,0
+f488b6e10347e4e5280eaac69758f9bac25c1b5a,DB-XES: Enabling Process Discovery in the Large,,,,,0,0
+18766153d11044896226d19d84781fed7686d5a5,"Everything You Always Wanted to Know About Your Process, but Did Not Know How to Ask",,,,,0,0
+2851819b367d5b1909ab1479e0902a5f0d02b8fd,Handling Duplicated Tasks in Process Discovery by Refining Event Labels,,,,,0,0
+ea484d102432581f1dc5a24ec772029e92d45a5c,Trace retrieval for business process operational support,,,,,0,0
+c8053aa86aac5e04eea7922e9f207dd5f895d669,Connecting databases with process mining: a meta model and toolset,,,,,0,0
+1a168a602d1b456761868553348393ff528c2915,Efficient and Customisable Declarative Process Mining with SQL,,,,,0,0
+d6b7e17c2bf7d0ee826d791398d6ac9fc7c78aff,Discovering Interacting Artifacts from ERP Systems,,,,,0,0
+4e011efa540c580e3a0d49bcba3ff2c503b3c34c,Multilevel Process Mining for Financial Audits,,,,,0,0
+9f79aa208d4956fd47ad6803691048d800947666,Scalable graph-based OLAP analytics over process execution data,,,,,0,0
+eb2230fd438b96defdb29bd9ca8a103747c1b2ea,Log-Based Understanding of Business Processes through Temporal Logic Query Checking,,,,,0,0
+02de4dcaacba3b8b9ff69fe92b2197cbd9b03b7e,Conformance Checking Based on Partially Ordered Event Data,,,,,0,0
+dcabb31822f026e294971f9051e856053cc11e22,Answering regular path queries on workflow provenance,,,,,0,0
+1755d42f0dfa973048dd748479ab8648133dc94d,The 4C Spectrum of Fundamental Behavioral Relations for Concurrent Systems,,,,,0,0
+ed893e2f68ead808d62567f885b827716fb0d44e,Artifact Lifecycle Discovery,,,,,0,0
+77b88ea433273ae54f3ce4bbb3883dd78a554011,Modeling and Querying Scientific Workflow Provenance in the D-OPM,,,,,0,0
+608d21702d10aabb0eb9fae08e2392d4f55bb7e0,A multi-dimensional quality assessment of state-of-the-art process discovery algorithms using real-life event logs,,,,,0,0
+d55d3d019859114ffc4a9ce50aa23a5e08e0876a,Integration of Event Data from Heterogeneous Systems to Support Business Process Analysis,,,,,0,0
+4833beba751ff38995fcfffe319dbbe57c51ace7,A Query Language for Analyzing Business Processes Execution,,,,,0,0
+9981b57f511b7222934b4a624b4b57b1e601313e,Querying Process Models Based on the Temporal Relations between Tasks,,,,,0,0
+4ce65de80f2c1ea86c8788d2ba12dd114409d609,MAD Skills: New Analysis Practices for Big Data,,,,,0,0
+9d162a1124c0264f18fadefb1f3fcf301e1ca01f,Semantic enabled complex event language for business process monitoring,,,,,0,0
+ef255fa3154e9fb7b172ce7b071f32b70dab2cbb,TOP-K projection queries for probabilistic business processes,,,,,0,0
+a95be8c7acdd66f772a0a8db1fe138d4ebb037de,Discovering Social Networks from Event Logs,,,,,0,0
+14e0f844531a3aac207c55d0dcb59a921fde96b2,Querying Workﬂow Logs,,,,,0,0
+7481c1f25d0059748c0ba2225b9b2d8153ce6a25,BPI Challenge 2015,,,,,0,0
+4b3ab3a7e392e2912db22e4e285a22d7ffc96522,Enabling natural language analysis for object-centric event logs,,,,,0,0
+160209b98c0fb3c7d3c3d80e6f8e37b89d3e7110,Combining case-based reasoning and process mining for root cause analysis in complex manufacturing environments,,,,,0,0
+8a597f196aff64d2f4a9e5b12c0a28854a905312,Refining the process picture: Unstructured data in object-centric process mining,,,,,0,0
+2045baef449971d8d6c650dc039a05d7144271b7,Validating temporal compliance patterns: A unified approach with MTLf over various data models,,,,,0,0
+215ecd1ff41819463e7633a7193473def65eddc9,Advances in Human-Robot Collaboration (HRC) in Construction 5.0 for building construction: A bibliometric and systematic literature review,,,,,0,0
+0446d4be47186ec885acce5fa228c6aa08e226f1,Enriching Object-Centric Event Data with Process Scopes: A Framework for Aggregation and Analysis,,,,,0,0
+21793579999d3e954aa3d1e69566cf44551e5229,"Human-robot synergy in building construction: advances, challenges, and future horizons for construction 5.0",,,,,0,0
+a5cd1c6a944cbc4c566a55455a847782e9c5db00,Additive Construction 4.0: a systematic review of 3D concrete printing for Construction 4.0,,,,,0,0
+bd4c7a30160514194200b6894570ff3ca39918e9,OCPQ: Object-Centric Process Querying and Constraints,,,,,0,0
+3f3f9b25f19cff4e74adfba9a6a64860422797e3,A Reference Model and Patterns for Production Event Data Enrichment,,,,,0,0
+231916d51c3b86f4289d5bd675b9ec679c000798,Process Mining on Distributed Data Sources,,,,,0,0
+a7d7a677b74f1de3514164096aeade69f6da0e6f,Process Query Language: A Domain-Specific Language for Querying Event Logs of Business Processes,,,,,0,0
+5c5ac84bbc5099041227684da8e27cb927ecd329,Theory: Multidimensional Space of Events,,,,,0,0
+a47b83f50d74f5e711005b30ed5f4c96939aadc9,Declarative process mining in big data scenarios using an application-agnostic framework,,,,,0,0
+599d7a507ea013a542e6cf51108756f6942d2f89,OCPM2: Extending the Process Mining Methodology for Object-Centric Event Data Extraction,,,,,0,0
+f433e8c645ff03365331f5db64b61d5be162e1a4,Getting the Data in Shape for Your Process Mining Analysis: An In-Depth Analysis of the Pre-Analysis Stage,,,,,0,0
+f437574ce0d316bc6408d5ca42599efbad4fdec5,Data model to enable multidimensional process mining for data farming based value stream planning in production networks,,,,,0,0
+811f966ef2cc73ff1fee667b5bd9992326c200c9,"Towards a Simple and Extensible Standard for Object-Centric Event Data (OCED) - Core Model, Design Space, and Lessons Learned",,,,,0,0
+206fd3926ac1f0aca3ddb9e10b0ba34d0244deee,Discovery of Object-Centric Declarative Models,,,,,0,0
+369ddb839e41bace66c4306597115a7847d79db5,Discovery of Object-Centric Declarative Models,,,,,0,0
+13e8abc908f8f6b6bd95528b401491b1367b9fda,Posets and Bounded Probabilities for Discovering Order-inducing Features in Event Knowledge Graphs,,,,,0,0
+5d3abcccb59579c4e108d9c393f6fcdf080ec859,Dynamic and Scalable Data Preparation for Object-Centric Process Mining,,,,,0,0
+016fb2f5c6a98bd7d8ac8917566275b18713c51f,Design and implementation of an advanced grid security event analysis system,,,,,0,0
+6081a05db064cb0844c5aa3656df8e3e72812c19,iDOCEM: defining a common terminology for object-centric event logging and data-centric process modelling,,,,,0,0
+2c3537e064cbe0ef5d9b5dc19e2a2fdb3a4662fd,Validating Temporal Compliance Patterns: A Unified Approach with MTLf over various Data Models,,,,,0,0
+203de5cb6d25b5c5327c056d8578dc194c174b59,Transforming Object-Centric Event Logs to Temporal Event Knowledge Graphs (Extended Version),,,,,0,0
+eb1bfb62d2c4b396adf486a3bb81b8c91411e872,Observability and Incident Response in Managed Serverless Environments Using Ontology-Based Log Monitoring,,,,,0,0
+dc51ca0b6516c0fbf81e243bb7021c21bd38a12d,How well can a large language model explain business processes as perceived by users?,,,,,0,0
+e2523915c927b088b2f01711300adc62a4647071,"Digital Twins: Features, Models, And Services",,,,,0,0
+42e276625f7cda295b8a605085bf7e586e16c3d7,Advancements and Challenges in Object-Centric Process Mining: A Systematic Literature Review,,,,,0,0
+ef3c4a0533fbfde68898a4590f02ee994eb55a7a,"Expressive Power and Complexity Results for SIGNAL, an Industry-Scale Process Query Language",,,,,0,0
+3829bd4f36daa8cdac7ed856e248828ba4f9fd04,Discovering High-Quality Process Models Despite Data Scarcity,,,,,0,0
+645c61bf401aca80ceec764158ee6a641f82e7f2,Automated digital twin generation of manufacturing systems with complex material flows: graph model completion,,,,,0,0
+035b2d70203a267ed8fa03432e28e839676ba16a,Preserving complex object-centric graph structures to improve machine learning tasks in process mining,,,,,0,0
+a87863d578d6bd9a178936af5da6aec74c263537,Formulating the potentials of clustering of event data over multiple entities for decision support: a network embeddings approach,,,,,0,0
+060c2264f21f16523ed7c194e78fabc90a982c2f,Leveraging Large Language Models (LLMs) for Process Mining (Technical Report),,,,,0,0
+77eb93b7644cef913c47d51a22994d251dcaa6df,Graph-based feature extraction on object-centric event logs,,,,,0,0
+0a574c06366dd66c510e69ddcb0cc6b7e6dc5754,Analyzing interconnected processes: using object-centric process mining to analyze procurement processes,,,,,0,0
+823c64425a551bd18e4761fe0a5a58d67da10c6c,"Abstractions, Scenarios, and Prompt Definitions for Process Mining with LLMs: A Case Study",,,,,0,0
+34a9d9182c479621dc580e4f5662ccec9d7acdd6,Graph neural network-based spatio-temporal indoor environment prediction and optimal control for central air-conditioning systems,,,,,0,0
+09c8e630e7fe872d637f9ca382f0a74251fe5167,A generic approach to extract object-centric event data from databases supporting SAP ERP,,,,,0,0
+349d51a8240d324792603dccc57b0c34a9d388ee,Object-Centric Process Mining: Unraveling the Fabric of Real Processes,,,,,0,0
+2e3dc7796b648870b04b3caabcda697f4db0528e,"Bridging graph data models: RDF, RDF-star, and property graphs as directed acyclic graphs",,,,,0,0
+a4b4539190340f49dbb48ef7b00a8a03cad96a69,The biggest business process management problems to solve before we die,,,,,0,0
+dd6823a807fa107d0d9f66a860c00db3b657c122,Normalizing object-centric process logs by applying database principles,,,,,0,0
+7f5144433c4ee13328e7c20a002ccbd40108727d,Towards Knowledge-Centric Process Mining,,,,,0,0
+c8c872592b1a4df71be5896601fb947beea62b07,Explainable concept drift in process mining,,,,,0,0
+373192777040fd9a4d8ffe9a512ab8727f7fd789,Extracting and Pre-Processing Event Logs,,,,,0,0
+f43d30ca80e3e77e8f1653343490b1f236548bdd,ocpa: A Python library for object-centric process analysis,,,,,0,0
+27a9d6e5a646cc39f2c303e8db76871c7e54e50c,Monitoring Constraints in Business Processes Using Object-Centric Constraint Graphs,,,,,0,0

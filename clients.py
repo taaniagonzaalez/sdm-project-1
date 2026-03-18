@@ -3,19 +3,22 @@ from config import SEMANTIC_SCHOLAR_API, DBLP_PUBL_API
 from utils import request_json, s2_headers
 
 class SemanticScholarClient:
-    def search_papers(self, query: str, limit: int = 20) -> List[dict]:
-        url = f"{SEMANTIC_SCHOLAR_API}/paper/search"
-        fields = ",".join([
-            "paperId", "title", "year", "venue", "authors",
-            "fieldsOfStudy", "citationCount", "referenceCount"
-        ])
-        params = {
-            "query": query,
-            "limit": limit,
-            "fields": fields
-        }
-        data = request_json(url, params=params, headers=s2_headers())
-        return data.get("data", [])
+    def search_papers(self, query: str, limit: int = 20, offset: int = 0) -> List[dict]:
+            url = f"{SEMANTIC_SCHOLAR_API}/paper/search"
+            fields = ",".join([
+                "paperId", "title", "year", "venue", "authors",
+                "fieldsOfStudy", "citationCount", "referenceCount"
+            ])
+            params = {
+                "query": query,
+                "limit": limit,
+                "offset": offset,  # Added offset here
+                "fields": fields
+            }
+            # request_json already has a sleep=1.3, 
+            # but for 429 errors, we might need more (see main.py)
+            data = request_json(url, params=params, headers=s2_headers())
+            return data.get("data", [])
 
     def get_paper_details(self, paper_id: str) -> dict:
         url = f"{SEMANTIC_SCHOLAR_API}/paper/{paper_id}"
