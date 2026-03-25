@@ -1,2 +1,3 @@
-workshop_id,name
-coling_workshops,COLING Workshops
+workshop_id,name,acronym
+coling_workshops,COLING Workshops,COLIN
+workshop_on_the_theory_and_practice_of_provenance,Workshop on the Theory and Practice of Provenance,WORKS

@@ -47,3 +47,13 @@ def request_json(url: str, params: Optional[dict] = None, headers: Optional[dict
 
     time.sleep(sleep)
     return r.json()
+
+def calculate_num_pages(pages_str: str) -> int:
+    """Estimates num_pages from a string like '123-145'."""
+    if not pages_str:
+        return 0
+    match = re.search(r'(\d+)\s*-\s*(\d+)', str(pages_str))
+    if match:
+        start, end = int(match.group(1)), int(match.group(2))
+        return abs(end - start) + 1
+    return 0

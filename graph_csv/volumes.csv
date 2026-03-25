@@ -1,9 +1,12 @@
-volume_id,name,journal_name,year
-future_internet_unknown_2024,unknown,Future Internet,2024
-database_j_biol_databases_curation_unknown_2023,unknown,Database J. Biol. Databases Curation,2023
-the_vldb_journal_unknown_2021,unknown,The VLDB journal,2021
-sigmod_record_unknown_2022,unknown,SIGMOD record,2022
-database_j_biol_databases_curation_unknown_2021,unknown,Database J. Biol. Databases Curation,2021
-log_in_unknown_2022,unknown,LOG IN,2022
-applied_soft_computing_unknown_2021,unknown,Applied Soft Computing,2021
-journal_on_data_semantics_unknown_2020,unknown,Journal on Data Semantics,2020
+volume_node_id,volume_id,issue_number
+ieee_data_engineering_bulletin_vol_1_2025,1,1
+future_internet_vol_1_2024,1,1
+database_j_biol_databases_curation_vol_1_2023,1,1
+the_vldb_journal_vol_1_2021,1,1
+sigmod_record_vol_1_2022,1,1
+database_j_biol_databases_curation_vol_1_2021,1,1
+log_in_vol_1_2022,1,1
+applied_soft_computing_vol_1_2021,1,1
+journal_on_data_semantics_vol_1_2020,1,1
+ieee_access_vol_1_2020,1,1
+advances_in_computer_and_electrical_engineering_vol_1_2019,1,1
