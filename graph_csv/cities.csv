@@ -1,2 +1,2 @@
-city_id,name
-unknown_city,Unknown City
+city_id,name,country
+unknown_city,Unknown City,Unknown Country

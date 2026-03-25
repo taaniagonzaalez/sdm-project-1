@@ -1,0 +1,54 @@
+# Esquema del Modelo de Datos (Property Graph)
+
+## 1. Nodos y Atributos
+
+| Etiqueta (Node) | Atributos (Properties) |
+| :--- | :--- |
+| **:Paper** | `{title, doi, num_pages, abstract_summary, year_published}` |
+| **:Author** | `{name, orcid, affiliation}` |
+| **:Topic** | `{name, area}` |
+| **:Abstract** | `{content, word_count}` |
+| **:Edition** | `{number, start_date, end_date}` |
+| **:Volume** | `{volume_id, issue_number}` |
+| **:Proceedings** | `{title, publisher}` |
+| **:Workshop** | `{name, acronym}` |
+| **:Conference** | `{name, acronym, ranking}` |
+| **:Journal** | `{name, issn, impact_factor}` |
+| **:Year** | `{value}` |
+| **:City** | `{name, country}` |
+
+
+---
+
+## 2. Relaciones entre Nodos
+
+### Paper Relationships:
+
+1. `(:Paper)-[:CITES {context: string, rank_score: float}]->(:Paper)`
+2. `(:Paper)-[:CONTAINS {relevance_score: float}]->(:Topic)`
+3. `(:Paper)-[:STARTS_WITH]->(:Abstract)`
+4. `(:Paper)-[:PUBLISHED_AT {pages: string}]->(:Edition)`
+5. `(:Paper)-[:PUBLISHED_AT {pages: string}]->(:Volume)`
+6. `(:Paper)-[:APPEAR_IN]->(:Proceedings)`
+
+### Author Relationships:
+
+1. `(:Author)-[:WRITES {role: 'main', is_corresponding: true, author_order: 1}]->(:Paper)`
+2. `(:Author)-[:WRITES {role: 'co-author', is_corresponding: false, author_order: int}]->(:Paper)`
+3. `(:Author)-[:REVIEWS {score: float, comments: string, decision: string}]->(:Paper)`
+
+### Edition Relationships:
+
+1. `(:Edition)-[:PART_OF]->(:Workshop)`
+2. `(:Edition)-[:PART_OF]->(:Conference)`
+3. `(:Edition)-[:DATED_IN]->(:Year)`
+4. `(:Edition)-[:PLACED_AT]->(:City)`
+
+### Proceedings Relationships:
+
+1. `(:Proceedings)-[:BELONGS_TO]->(:Edition)`
+
+### Volume Relationships:
+
+1. `(:Volume)-[:DATED_IN]->(:Year)`
+2. `(:Volume)-[:PART_OF]->(:Journal)`

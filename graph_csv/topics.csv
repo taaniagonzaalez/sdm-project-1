@@ -1,3 +1,4 @@
-topic_id,name
-computer_science,Computer Science
-medicine,Medicine
+topic_id,name,area
+computer_science,Computer Science,General Computer Science
+medicine,Medicine,General Computer Science
+mathematics,Mathematics,General Computer Science
