@@ -8,7 +8,7 @@ import argparse
 
 
 
-def main(ignore_flag):
+def main(download_flag):
     # You can override the default query using an environment variable
     query = os.getenv("GRAPH_QUERY", DEFAULT_QUERY)
     
@@ -16,7 +16,7 @@ def main(ignore_flag):
     dblp = DBLPClient()
     graph = GraphBuilder()
 
-    if not ignore_flag:
+    if download_flag == 'True':
         print(f"[1/4] Searching Semantic Scholar for query: '{query}'")
         seed_papers = []
         
@@ -58,6 +58,10 @@ def main(ignore_flag):
                 print(f"  processed {i}/{len(seed_ids)} -> {paper_id}")
             except Exception as e:
                 print(f"  warning: could not enrich {paper_id}: {e}")
+        
+        print("[+] Expanding graph with Synthetic Data...")
+        # Increase the scale_multiplier if you want thousands of nodes!
+        graph.generate_synthetic_data(scale_multiplier=10)
 
         print("[4/5] Writing CSV files...")
         graph.export_all(OUTPUT_DIR)
@@ -69,14 +73,12 @@ def main(ignore_flag):
 
     app = GraphTransformerApp(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
     try:
-        # Step 1: Copy files to Neo4j jail
-        setup_neo4j_files(OUTPUT_DIR, NEO4J_IMPORT_DIR)
         
-        # Step 2: Connect and process
+        # Step 1: Connect and process
         app = GraphTransformerApp(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
         app.clear_database()      # Clean start
         app.load_initial_data()   # Create A.1 model
-        app.run_transformation()  # Evolve to A.3 model
+        app.run_transformation_a3()  # Evolve to A.3 model
     except Exception as e:
         raise Exception(e)
     finally:
@@ -88,8 +90,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="My Neo4j ETL Pipeline")
 
     # Add the arguments you want to look for
-    parser.add_argument("-p", "--ignore_export", required=False, help="Not download data")
+    parser.add_argument("-p", "--download_data", required=False, help="Download data")
 
     # Parse them
     args = parser.parse_args()
-    main(args.ignore_export)
+    main(args.download_data)
