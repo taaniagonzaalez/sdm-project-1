@@ -85,7 +85,8 @@ class GraphTransformerApp:
             LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/authors.csv' AS row
             MERGE (a:Author {author_id: row.author_id})
             SET a.name = row.name,
-                a.orcid = row.orcid;
+                a.orcid = row.orcid,
+                a.affiliation = row.affiliation;
             """,
             """
             LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/organizations.csv' AS row
@@ -287,7 +288,7 @@ class GraphTransformerApp:
                 """
                 MATCH (a:Author)
                 WHERE a.affiliation IS NOT NULL
-                MERGE (o:Organization {name: a.affiliation_name})
+                MERGE (o:Organization {name: a.affiliation})
                 ON CREATE SET 
                     o.org_id = "org_" + replace(toLower(a.affiliation), " ", "_"),
                     o.type = CASE 
@@ -306,7 +307,7 @@ class GraphTransformerApp:
                 # 6. Limpieza de propiedad antigua
                 """
                 MATCH (a:Author) WHERE a.affiliation IS NOT NULL
-                REMOVE a.affiliation_name
+                REMOVE a.affiliation
                 """,
 
                 # 7. Unificación de publicaciones (Proceedings)
