@@ -1,11 +1,2 @@
 journal_id,name,issn,impact_factor
-ieee_data_engineering_bulletin,IEEE Data Engineering Bulletin,,0.0
-future_internet,Future Internet,,0.0
-database_j_biol_databases_curation,Database J. Biol. Databases Curation,,0.0
-the_vldb_journal,The VLDB journal,,0.0
-sigmod_record,SIGMOD record,,0.0
-log_in,LOG IN,,0.0
-applied_soft_computing,Applied Soft Computing,,0.0
-journal_on_data_semantics,Journal on Data Semantics,,0.0
-ieee_access,IEEE Access,,0.0
-advances_in_computer_and_electrical_engineering,Advances in Computer and Electrical Engineering,,0.0
+journal_graph_01,Journal of Graph Theory,000-111,5.2
