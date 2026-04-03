@@ -134,8 +134,7 @@ class GraphTransformerApp:
             LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/journals.csv' AS row
             MERGE (j:Journal {journal_id: row.journal_id})
             SET j.name = row.name,
-                j.issn = row.issn,
-                j.impact_factor = toFloat(row.impact_factor);
+                j.issn = row.issn;
             """,
             """
             LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/conferences.csv' AS row

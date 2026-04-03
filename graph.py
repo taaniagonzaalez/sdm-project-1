@@ -101,7 +101,7 @@ class GraphBuilder:
             journal_name = clean_text(journal.get("name") or venue_name or "Unknown Journal")
             journal_id = slugify(journal_name)
             if journal_id not in self.journals:
-                self.journals[journal_id] = {"name": journal_name, "issn": "", "impact_factor": 0.0}
+                self.journals[journal_id] = {"name": journal_name, "issn": ""}
 
             volume_name = clean_text(journal.get("volume") or "1")
             volume_id = slugify(f"{journal_name}_vol_{volume_name}_{year or 'unknown'}")
@@ -276,7 +276,7 @@ class GraphBuilder:
         synth_journals = []
         for _ in range(5 * scale_multiplier):
             j_id = f"journal_{uuid.uuid4().hex[:8]}"
-            self.journals[j_id] = {"journal_id": j_id, "name": f"Journal of {fake.word().title()}", "issn": fake.bothify(text='####-####'), "impact_factor": round(random.uniform(0.5, 15.0), 2)}
+            self.journals[j_id] = {"journal_id": j_id, "name": f"Journal of {fake.word().title()}", "issn": fake.bothify(text='####-####')}
             synth_journals.append(j_id)
 
         synth_conferences = []
@@ -432,7 +432,7 @@ class GraphBuilder:
         self.write_csv(output_dir / "editions.csv", ["edition_id", "number", "start_date", "end_date"], self.editions.items(), True, "edition_id")
         self.write_csv(output_dir / "proceedings.csv", ["proceedings_id", "title", "publisher"], self.proceedings.items(), True, "proceedings_id")
         self.write_csv(output_dir / "volumes.csv", ["volume_node_id", "volume_id", "issue_number"], self.volumes.items(), True, "volume_node_id")
-        self.write_csv(output_dir / "journals.csv", ["journal_id", "name", "issn", "impact_factor"], self.journals.items(), True, "journal_id")
+        self.write_csv(output_dir / "journals.csv", ["journal_id", "name", "issn"], self.journals.items(), True, "journal_id")
         self.write_csv(output_dir / "conferences.csv", ["conference_id", "name", "acronym", "ranking"], self.conferences.items(), True, "conference_id")
         self.write_csv(output_dir / "workshops.csv", ["workshop_id", "name", "acronym"], self.workshops.items(), True, "workshop_id")
         self.write_csv(output_dir / "reviews.csv", ["review_id", "content_description", "decision"], self.reviews.items(), True, "review_id")
