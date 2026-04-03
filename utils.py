@@ -3,6 +3,8 @@ import time
 import requests
 from typing import Optional, Dict
 from config import S2_API_KEY
+from pathlib import Path
+import shutil
 
 def slugify(text: str) -> str:
     text = (text or "").strip().lower()
