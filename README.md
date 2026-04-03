@@ -1,48 +1,38 @@
-# Proyecto: SDM - Lab Assignment (Property Graphs)
+# A.3. Revisar que esté bien:
+// Debería devolver los autores, sus reseñas y el paper asociado
+MATCH (a:Author)-[:SUBMITTED]->(rev:Review)-[:REVIEWS]->(p:Paper)
+RETURN a.name AS Autor, rev.decision AS Decision, p.title AS Paper
+LIMIT 10;
 
-[cite_start]Este proyecto consiste en el diseño, implementación y análisis de una base de datos de grafos utilizando **Neo4j** para el dominio de publicaciones de investigación[cite: 3, 34].
+// Verificación de limpieza (Debe devolver 0)
+MATCH ()-[r:PROVIDES_REVIEW]-() 
+RETURN count(r) AS Relaciones_Antiguas_Restantes;
 
-## 🚀 Cómo empezar con Neo4j
+// Verifica la conexión y los nuevos IDs generados
+MATCH (a:Author)-[:AFFILIATED_WITH]->(o:Organization)
+RETURN a.name AS Autor, o.name AS Org_Nombre, o.org_id AS ID_Generado, o.type AS Tipo
+LIMIT 10;
 
-Para este laboratorio, es fundamental configurar correctamente el entorno:
+// Verificación de limpieza de metadatos (Debe devolver 0)
+MATCH (a:Author) 
+WHERE a.affiliation_name IS NOT NULL 
+RETURN count(a) AS Autores_Sin_Limpiar;
 
-1.  [cite_start]**Descarga Neo4j Desktop:** Es la opción recomendada ya que incluye una licencia de desarrollador y permite gestionar plugins fácilmente[cite: 1, 15].
-2.  [cite_start]**Instalación del Driver:** El proyecto requiere entregar un programa funcional en **Python** o **Java**[cite: 18, 19].
-    * Si usas Python: `pip install neo4j`.
-3.  [cite_start]**Plugin GDS:** Para la sección de algoritmos, debes instalar el plugin **Graph Data Science Library** desde la pestaña "Plugins" en Neo4j Desktop[cite: 128, 129].
+// Verifica que ambos tipos de publicaciones ahora usan PUBLISHED_AT
+MATCH (p:Paper)-[r:PUBLISHED_AT]->(target)
+RETURN p.title AS Paper, 
+       labels(target)[0] AS Tipo_Destino (Volume/Proceedings), 
+       r.pages AS Paginas
+LIMIT 10;
 
-## 📋 Pasos del Proyecto
+// Verificación de limpieza (Debe devolver 0)
+MATCH ()-[r:PUBLISHED_IN_PROCEEDINGS]-()
+MATCH ()-[r2:PUBLISHED_IN_VOLUME]-()
+RETURN count(r) + count(r2) AS Relaciones_Viejas_Activas;
 
-[cite_start]El trabajo se divide en cuatro fases principales que deben reflejarse tanto en el código como en el documento PDF de 8 páginas[cite: 23, 24].
+MATCH (p:Paper)<-[:REVIEWS]-(rev:Review)
+WITH p, count(rev) AS num_reviews, collect(rev.decision) AS decisiones
+WHERE size([d IN decisiones WHERE d = "Accept" OR d = "Accepted"]) > (num_reviews / 2)
+RETURN p.title AS Paper_Aceptado, num_reviews AS Total_Reviews, decisiones AS Votos;
 
-### Fase A: Modelado, Carga y Evolución
-* [cite_start]**A.1 Modelado:** Diseñar el esquema de grafos (nodos y relaciones) para autores, artículos, conferencias y revistas[cite: 34, 35, 52].
-* [cite_start]**A.2 Instanciación:** Cargar datos reales (ej. DBLP o Semantic Scholar) y completar con datos sintéticos mediante `LOAD CSV`[cite: 60, 64, 73].
-* [cite_start]**A.3 Evolución:** Modificar el modelo para incluir revisiones de artículos y afiliaciones de autores mediante consultas Cypher[cite: 84, 88, 93].
-
-### Fase B: Consultas (Querying)
-[cite_start]Implementar consultas Cypher eficientes para obtener[cite: 97]:
-* [cite_start]Top 3 artículos más citados por conferencia[cite: 98].
-* [cite_start]Comunidades de autores (4+ ediciones de una conferencia)[cite: 99].
-* [cite_start]Factor de impacto de revistas e índice h de autores[cite: 100, 101].
-
-### Fase C: Recomendador
-[cite_start]Crear un recomendador de revisores en 4 pasos (consultas consecutivas)[cite: 104, 106]:
-1. [cite_start]Definir la comunidad de bases de datos por palabras clave[cite: 109, 113].
-2. [cite_start]Identificar conferencias/revistas relacionadas (90% de artículos de la comunidad)[cite: 114, 115].
-3. [cite_start]Encontrar los 100 artículos con más citas[cite: 117, 118].
-4. [cite_start]Identificar revisores potenciales y "gurus"[cite: 119, 120].
-
-### Fase D: Algoritmos de Grafos
-[cite_start]Seleccionar **dos algoritmos** de la librería GDS (ej. PageRank, Louvain, Dijkstra)[cite: 126, 128, 154]:
-* [cite_start]Ejecutar las llamadas semánticamente correctas[cite: 154].
-* [cite_start]Justificar los resultados y su interpretación desde la perspectiva del dominio de investigación[cite: 155, 156].
-
-## 📦 Entrega
-* [cite_start]**Formato:** Un único archivo ZIP llamado `LAB1_Apellido1Apellido2.zip`[cite: 26, 27].
-* **Contenido:**
-    * [cite_start]Código fuente (Python/Java) para cada ejercicio[cite: 18, 22].
-    * [cite_start]Documento `DOC_Apellido1Apellido2.pdf` con las justificaciones y diagramas[cite: 23, 24].
-
-
-**Excalidraw**: https://excalidraw.com/#json=XnI1uNBwio5G3T63AkQq4,O-PMY3TUFHxkz5U8KabzIQ
+CALL db.schema.visualization();

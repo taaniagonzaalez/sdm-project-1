@@ -286,12 +286,12 @@ class GraphTransformerApp:
                 # 4. Transformación de Afiliaciones (Usando funciones nativas para evitar error de APOC)
                 """
                 MATCH (a:Author)
-                WHERE a.affiliation_name IS NOT NULL
+                WHERE a.affiliation IS NOT NULL
                 MERGE (o:Organization {name: a.affiliation_name})
                 ON CREATE SET 
-                    o.org_id = "org_" + replace(toLower(a.affiliation_name), " ", "_"),
+                    o.org_id = "org_" + replace(toLower(a.affiliation), " ", "_"),
                     o.type = CASE 
-                        WHEN toLower(a.affiliation_name) CONTAINS "university" THEN "University" 
+                        WHEN toLower(a.affiliation) CONTAINS "university" THEN "University" 
                         ELSE "Company" 
                     END
                 """,
@@ -299,13 +299,13 @@ class GraphTransformerApp:
                 # 5. Crear la relación de afiliación
                 """
                 MATCH (a:Author), (o:Organization)
-                WHERE a.affiliation_name = o.name
+                WHERE a.affiliation = o.name
                 MERGE (a)-[:AFFILIATED_WITH]->(o)
                 """,
 
                 # 6. Limpieza de propiedad antigua
                 """
-                MATCH (a:Author) WHERE a.affiliation_name IS NOT NULL
+                MATCH (a:Author) WHERE a.affiliation IS NOT NULL
                 REMOVE a.affiliation_name
                 """,
 
