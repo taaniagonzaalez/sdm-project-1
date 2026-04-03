@@ -2,7 +2,6 @@ import os
 from config import DEFAULT_QUERY, SEARCH_LIMIT, OUTPUT_DIR, TOTAL_TO_DOWNLOAD, CHUNK_SIZE, NEO4J_URI, NEO4J_PASSWORD, NEO4J_USER, NEO4J_IMPORT_DIR
 from clients import SemanticScholarClient, DBLPClient, GraphTransformerApp
 from graph import GraphBuilder
-from utils import setup_neo4j_files
 import time
 import argparse
 

@@ -59,23 +59,3 @@ def calculate_num_pages(pages_str: str) -> int:
         start, end = int(match.group(1)), int(match.group(2))
         return abs(end - start) + 1
     return 0
-
-def setup_neo4j_files(source_folder: str, neo4j_import_path: str):
-    """Copies all generated CSV files from your project to the Neo4j import directory."""
-    print(f"Syncing data to Neo4j import directory: {neo4j_import_path}")
-    
-    src = Path(source_folder)
-    dest = Path(neo4j_import_path)
-    
-    if not src.exists():
-        raise FileNotFoundError(f"Source folder '{source_folder}' does not exist. Run main.py first!")
-    if not dest.exists():
-        raise FileNotFoundError(f"Neo4j import folder '{neo4j_import_path}' does not exist. Check your path!")
-
-    # Copy all CSVs
-    count = 0
-    for csv_file in src.glob("*.csv"):
-        shutil.copy(csv_file, dest / csv_file.name)
-        count += 1
-        
-    print(f"Successfully copied {count} CSV files. Neo4j can now see them!")
