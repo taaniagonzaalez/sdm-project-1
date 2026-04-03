@@ -1,3 +1,23 @@
+## QUERY 1:
+
+MATCH (venue)<-[:PART_OF]-(e:Edition)<-[:BELONGS_TO]-(pr:Proceedings)<-[:PUBLISHED_AT]-(p:Paper)
+WHERE venue:Conference OR venue:Workshop
+OPTIONAL MATCH (p)<-[:CITES]-(citing:Paper)
+WITH venue, p, count(citing) AS citations
+ORDER BY venue.name ASC, citations DESC
+WITH venue, collect({title: p.title, citations: citations})[0..3] AS top3
+RETURN venue.name AS Venue, top3 AS MostCitedPapers
+
+
+## QUERY 2:
+
+MATCH (a:Author)-[:WRITES]->(p:Paper)-[:PUBLISHED_AT]->(pr:Proceedings)-[:BELONGS_TO]->(e:Edition)-[:PART_OF]->(venue)
+WHERE venue:Conference OR venue:Workshop
+WITH venue, a, count(DISTINCT e) AS editionsCount
+WHERE editionsCount >= 2
+RETURN venue.name AS Venue, 
+       collect({author: a.name, editions: editionsCount}) AS Community
+ORDER BY size(Community) DESCs
 
 ## QUERY 3:
 ```markdown
