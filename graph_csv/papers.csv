@@ -1,51 +1,6 @@
 paper_id,title,doi,num_pages,abstract_summary,year_published
-087c755ff8689e4c5d846f952e9b2ed17dfe99f9,TigerVector: Supporting Vector Search in Graph Databases for Advanced RAGs,,0,,2025
-514e4e91e0fbddaa85857760d4f206a18228d614,CodexGraph: Bridging Large Language Models and Code Repositories via Code Graph Databases,,0,,2024
-326cecd1e73da6790cc30fafc298489882e20c7f,Top Ten Challenges Towards Agentic Neural Graph Databases,,0,,2025
-3ca49899da83e160280c709288973e9caed30fa2,Text2Cypher: Bridging Natural Language and Graph Databases,,0,,2024
-730d8b1e289067af593cfbc36c52ec0275507514,Survey: Graph Databases,,0,,2025
-27d0ae215acfaa5914fc13cea20626c9470848c2,Real-Time Text-to-Cypher Query Generation with Large Language Models for Graph Databases,,0,,2024
-6e08bd9b6ecb3e3978de66c5f8bd8636367413bc,Understanding Graph Databases: A Comprehensive Tutorial and Survey,,0,,2024
-033275ccc2c7c5c38592ae893da0b5923cf90717,Neural Graph Reasoning: Complex Logical Query Answering Meets Graph Databases,,0,,2023
-459cf4e6476d5e19f1bc422c162bcded54ca7f95,"Experimental Evaluation of Graph Databases: JanusGraph, Nebula Graph, Neo4j, and TigerGraph",,0,,2023
-3c78b9d672e5bb2e065bcac54b52aa08b94b7321,The importance of graph databases and graph learning for clinical applications,,0,,2023
-86e9b0585c8b866665de18b2744d69aefff3e16d,A model and query language for temporal graph databases,,0,,2021
-1a85628dd645ea86b7c146613651fdb30bb32c1d,The World of Graph Databases from An Industry Perspective,,0,,2022
-a20e707395132f750fa958ebc0ea629b23b57bfe,An overview of graph databases and their applications in the biomedical domain,,0,,2021
-4340043a5a43f1863e080e3fc717f863ad21b51d,Graph Databases,,0,,2023
-1cbbe1a129c0d1f53d8e16ca74238334372507dc,Neural Graph Databases,,0,,2022
-d852660e15e82ae150dcde105639ba2c7d90f01f,Graph Databases,,0,,2019
-5abf79226a8ffa2dcf33ca98bfc36c8bb01cc4fc,Multilayer graphs: a unified data model for graph databases,,0,,2022
-59078a26c42e8609244f1c3e01f05af74a3773bf,Inference of Shape Graphs for Graph Databases,,0,,2022
-85b681e08c9db87dc19a5d5d8664e0027a8e8ad9,Skills2Job: A recommender system that encodes job offer embeddings on graph databases,,0,,2021
-93e6ba25e4c45c3f204a09b6a6b8b02bd3596091,Querying in the Age of Graph Databases and Knowledge Graphs,,0,,2021
-06424dcd3be195738b653d2ee4358d9974f4cb30,GAWD: graph anomaly detection in weighted directed graph databases,,0,,2021
-703d49a335799262e474ed8fe6044cd641a9e00a,Multi-Dimensional Event Data in Graph Databases,,0,,2020
-2d95c27d4ed8cfb8379164888cd79c6b239250b4,Mapping RDF Databases to Property Graph Databases,,0,,2020
-c858ba9bce833896b49878a6793dbb382ed83c9e,Query Languages for Graph Databases,,0,,2019
-bcca5c7e9180c4890936343d79e812cb16cbefb6,"Graph Databases Comparison: AllegroGraph, ArangoDB, InfiniteGraph, Neo4J, and OrientDB",,0,,2018
-689c7a86d973895a14feb984b8faa3d5581038ef,"Demystifying Graph Databases: Analysis and Taxonomy of Data Organization, System Designs, and Graph Queries",,0,,2019
-44ec06d911eed44ee99be61bd9ce964a824a2ed7,Schema Validation and Evolution for Graph Databases,,0,,2019
-17a6213e30895fb7e5d0b368236ea8beeb94ee86,Relational Deep Learning: Graph Representation Learning on Relational Databases,,0,,2023
-0443c9a0fbb403d5e7d3593f5d286cb74ed0b490,GHashing: Semantic Graph Hashing for Approximate Similarity Search in Graph Databases,,0,,2020
-1d0d84a1f4e8de75151d88bd152816f18109d032,Similarity Search in Graph Databases: A Multi-Layered Indexing Approach,,0,,2017
-f295128bb1846e441a5195d5bbf4902f49186e30,Handling missing values for mining gradual patterns from NoSQL graph databases,,0,,2020
-6ea38aacc779506909d425aa19114b92bb1854f8,Regular Queries on Graph Databases,,0,,2017
-659d8b24e53e8adfbcb1f16b26ada2cb8afa2c85,A Schema-First Formalism for Labeled Property Graph Databases: Enabling Structured Data Loading and Analytics,,0,,2019
-c867c372ed78e27c53feaf788e74aa7506302bbe,Graph Databases: Neo4j Analysis,,0,,2017
-f3e765ca2b8c4191759b141d2e5c42215ed9090d,The Suitability of Graph Databases for Big Data Analysis: A Benchmark,,0,,2020
-e1edea57a10c66ca3287c4b85547b37945413a3c,Detecting Anomalous Graphs in Labeled Multi-Graph Databases,,0,,2020
-b8e30590ac81875a7fc4f7cfd425bd5148a72f5c,Updating Graph Databases with Cypher,,0,,2019
-6e87f544017f73670c44d9d0856340a289ff9e38,"SQUID: A Scalable System for Querying, Updating and Indexing Dynamic Graph Databases",,0,,2019
-39af4070dca3221d275898c55884167bc03fe73d,Singleton Property Graph: Adding A Semantic Web Abstraction Layer to Graph Databases,,0,,2019
-6e4e15ab0d55232b93e76ddecb6c969a0d18f853,Designing Graph Databases With GRAPHED,,0,,2019
-1f4bee77bb69b92dd16ce0c3ad0f477f4ecf1d30,Analytical queries on semantic trajectories using graph databases,,0,,2019
-13bd0e08713f0b340396634892d2c9e3c5bee548,Comparative study of relational and graph databases,,0,,2019
-e8505f6175585713aa7b785285b3abc4113b57ef,Investigative Graph Search using Graph Databases,,0,,2019
-4f873d5a3ab80402e206a361eeffd3b69f014db0,Semiring Provenance over Graph Databases,,0,,2018
-16a65dcd609d48f79a9a271377628fdae5315a62,biochem4j: Integrated and extensible biochemical knowledge through graph databases,,0,,2017
-d154d986c3a402c207c6c0e22093f2e1a878fe71,Two for one: querying property graph databases using SPARQL via gremlinator,,0,,2018
-02808823641975868e3212fd7ae859514fdbdf32,Integrity constraints in graph databases,,0,,2017
-7549a6e03afdd42ae94c19235db076319eeb34f8,Do We Need Specialized Graph Databases?: Benchmarking Real-Time Social Networking Applications,,0,,2017
-d427db1ba2cc92b36d16a5e5114f1027c90fff68,Model driven reverse engineering of NoSQL property graph databases: The case of Neo4j,,0,,2017
-2be77516f6233a9d3ebbf93b439c3658d955d2e5,Efficient and Scalable Integrity Verification of Data and Query Results for Graph Databases,,0,,2018
+paper_001,Advancements in Graph Databases Vol 1,10.1000/paper_001,9,Analysis of Neo4j performance in large scale environments.,2021
+paper_002,Advancements in Graph Databases Vol 2,10.1000/paper_002,15,Analysis of Neo4j performance in large scale environments.,2022
+paper_003,Advancements in Graph Databases Vol 3,10.1000/paper_003,17,Analysis of Neo4j performance in large scale environments.,2023
+paper_004,Advancements in Graph Databases Vol 4,10.1000/paper_004,11,Analysis of Neo4j performance in large scale environments.,2024
+paper_005,Advancements in Graph Databases Vol 5,10.1000/paper_005,12,Analysis of Neo4j performance in large scale environments.,2025

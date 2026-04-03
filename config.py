@@ -21,4 +21,9 @@ CHUNK_SIZE = 10
 OUTPUT_DIR = Path("graph_csv")
 
 # Optional Semantic Scholar API key
-S2_API_KEY = os.getenv("SEMANTIC_SCHOLAR_API_KEY")
+S2_API_KEY = os.getenv("tgOuYA5Pbp26Ldg45HwOT7ZP1Qy181G77g0tO43X")
+
+# --- CONTROL DE FLUJO ---
+DOWNLOAD_REAL_DATA = False    # True: Llama a Semantic Scholar / False: Salta la API
+GENERATE_SYNTHETIC = True    # True: Crea Reviews/Orgs ficticias / False: Solo usa lo de la API
+RUN_NEO4J_UPDATE = True      # True: Borra y carga en Neo4j / False: Solo genera CSVs

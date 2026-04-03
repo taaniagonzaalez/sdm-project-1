@@ -1,285 +1,152 @@
-import csv
+import pandas as pd
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
-from config import MAX_REFERENCES_PER_PAPER, MAX_CITATIONS_PER_PAPER
-from utils import clean_text, slugify, safe_int, calculate_num_pages
 import random
 
 class GraphBuilder:
     def __init__(self):
-        # Nodes
-        self.papers: Dict[str, dict] = {}
-        self.authors: Dict[str, dict] = {}
-        self.topics: Dict[str, dict] = {}
-        self.years: Dict[str, dict] = {}
-        self.cities: Dict[str, dict] = {}
-        self.editions: Dict[str, dict] = {}
-        self.proceedings: Dict[str, dict] = {}
-        self.volumes: Dict[str, dict] = {}
-        self.journals: Dict[str, dict] = {}
-        self.conferences: Dict[str, dict] = {}
-        self.workshops: Dict[str, dict] = {}
-        self.organizations: Dict[str, dict] = {}
-        self.reviews: Dict[str, dict] = {}
+        # Nodos
+        self.papers, self.authors, self.topics = [], [], []
+        self.organizations, self.reviews = [], []
+        self.conferences, self.workshops, self.journals = [], [], []
+        self.editions, self.volumes, self.proceedings = [], [], []
+        self.years, self.cities = [], []
 
-        # Relationships
-        self.rel_cites = set()
-        self.rel_has_keyword = set()
-        self.rel_published_in_proceedings = set()
-        self.rel_published_in_volume = set()
-        self.rel_edition_part_of = set()
-        self.rel_edition_dated_in = set()
-        self.rel_edition_held_in = set()
-        self.rel_proceedings_belongs_to = set()
-        self.rel_volume_dated_in = set()
-        self.rel_volume_part_of = set()
-        self.rel_writes = set()
-        self.rel_affiliated_with = set()
-        self.rel_provides_review = set()
-        self.rel_evaluates_paper = set()
+        # Relaciones
+        self.author_writes = []
+        self.paper_cites = []
+        self.paper_has_keyword = []
+        self.author_affiliated_with = []
+        self.review_evaluates_paper = []
+        self.author_provides_review = []
+        self.proceedings_belongs_to = []
+        self.edition_part_of = []
+        self.edition_dated_in = []
+        self.edition_placed_at = []
+        self.paper_published_in_proceedings = []
+        self.volume_dated_in = []      # (:Volume)-[:DATED_IN]->(:Year)
+        self.volume_part_of = []       # (:Volume)-[:PART_OF]->(:Journal)
 
-    def add_year(self, year: Optional[int]) -> Optional[str]:
-        if not year:
-            return None
-        year_id = str(year)
-        if year_id not in self.years:
-            self.years[year_id] = {"value": year}
-        return year_id
+    def add_paper(self, paper_data):
+        p_id = paper_data.get('paperId', f"p_{random.randint(1000,9999)}")
+        self.papers.append({
+            "paper_id": p_id,
+            "title": paper_data.get('title', 'Untitled Paper'),
+            "doi": paper_data.get('externalIds', {}).get('DOI', f"10.1000/{p_id}"),
+            "num_pages": random.randint(8, 25),
+            "abstract_summary": paper_data.get('abstract', 'Generic abstract for graph study.'),
+            "year_published": paper_data.get('year', 2024)
+        })
 
-    def add_city(self, city_name: str) -> str:
-        city_name = clean_text(city_name) or "Unknown City"
-        city_id = slugify(city_name)
-        if city_id not in self.cities:
-            self.cities[city_id] = {"name": city_name, "country": "Unknown Country"}
-        return city_id
+        for idx, auth in enumerate(paper_data.get('authors', []), start=1):
+            a_id = auth.get('authorId', f"a_{random.randint(100,999)}")
+            self.authors.append({
+                "author_id": a_id,
+                "name": auth.get('name', 'Anonymous Author'),
+                "orcid": f"0000-000-{random.randint(1000,9999)}"
+            })
+            self.author_writes.append({
+                "author_id": a_id, "paper_id": p_id,
+                "role": "main" if idx == 1 else "co-author",
+                "is_corresponding": idx == 1, "author_order": idx
+            })
+        return p_id
 
-    def add_organization(self, org_name: str) -> str:
-        org_name = clean_text(org_name)
-        org_id = slugify(org_name)
-        if org_id not in self.organizations:
-            self.organizations[org_id] = {"name": org_name, "type": infer_org_type(org_name)}
-        return org_id
-
-    def add_topic(self, topic_name: str) -> Optional[str]:
-        topic_name = clean_text(topic_name)
-        if not topic_name:
-            return None
-        topic_id = slugify(topic_name)
-        if topic_id not in self.topics:
-            self.topics[topic_id] = {"name": topic_name, "area": "General Computer Science"}
-        return topic_id
-
-    def infer_venue_type(self, paper: dict, dblp_info: Optional[dict]) -> str:
-        journal = paper.get("journal")
-        pub_types = paper.get("publicationTypes") or []
-        venue_name = clean_text(paper.get("venue") or "")
-
-        if journal or any("journal" in str(x).lower() for x in pub_types):
-            return "journal"
-        dblp_type = str((dblp_info or {}).get("type", "")).lower()
-        if "journal" in dblp_type:
-            return "journal"
-        if "workshop" in venue_name.lower() or "ws" in venue_name.lower():
-            return "workshop"
-        return "conference"
-
-    def build_publication_container(self, paper: dict, dblp_info: Optional[dict]) -> Tuple[Optional[str], Optional[str]]:
-        year = safe_int(paper.get("year"))
-        year_id = self.add_year(year)
-        venue_name = clean_text(paper.get("venue") or "Unknown Venue")
-        journal = paper.get("journal") or {}
-        venue_type = self.infer_venue_type(paper, dblp_info)
-
-        if venue_type == "journal":
-            journal_name = clean_text(journal.get("name") or venue_name or "Unknown Journal")
-            journal_id = slugify(journal_name)
-            if journal_id not in self.journals:
-                self.journals[journal_id] = {"name": journal_name, "issn": "", "impact_factor": 0.0}
-
-            volume_name = clean_text(journal.get("volume") or "1")
-            volume_id = slugify(f"{journal_name}_vol_{volume_name}_{year or 'unknown'}")
-            if volume_id not in self.volumes:
-                self.volumes[volume_id] = {"volume_id": volume_name, "issue_number": "1"}
-
-            if year_id:
-                self.rel_volume_dated_in.add((volume_id, year_id))
-            self.rel_volume_part_of.add((volume_id, journal_id))
-            return None, volume_id
-
-        # Conference or Workshop
-        container_name = venue_name or "Unknown Event"
-        container_id = slugify(container_name)
-
-        if venue_type == "workshop":
-            if container_id not in self.workshops:
-                self.workshops[container_id] = {"name": container_name, "acronym": container_name[:5].upper()}
-        else:
-            if container_id not in self.conferences:
-                self.conferences[container_id] = {"name": container_name, "acronym": container_name[:5].upper(), "ranking": "A"}
-
-        edition_id = slugify(f"{container_name}_{year or 'unknown'}")
-        if edition_id not in self.editions:
-            self.editions[edition_id] = {"number": year or 1, "start_date": f"{year}-01-01", "end_date": f"{year}-01-03"}
-
-        proc_id = slugify(f"proc_{container_name}_{year or 'unknown'}")
-        if proc_id not in self.proceedings:
-            self.proceedings[proc_id] = {"title": f"Proceedings of {container_name} {year or ''}".strip(), "publisher": "IEEE/ACM"}
-
-        if venue_type == "workshop":
-            self.rel_edition_part_of.add((edition_id, "Workshop", container_id))
-        else:
-            self.rel_edition_part_of.add((edition_id, "Conference", container_id))
-
-        if year_id:
-            self.rel_edition_dated_in.add((edition_id, year_id))
-
-        city_id = self.add_city("Unknown City")
-        self.rel_edition_held_in.add((edition_id, city_id))
-        self.rel_proceedings_belongs_to.add((proc_id, edition_id))
-
-        return proc_id, None
-
-    def add_paper(self, paper: dict, dblp_info: Optional[dict] = None):
-        paper_id = paper.get("paperId")
-        if not paper_id:
-            return
-
-        external_ids = paper.get("externalIds") or {}
-        doi = external_ids.get("DOI", "")
-        title = clean_text(paper.get("title"))
-        abstract = clean_text(paper.get("abstract"))
-        year = safe_int(paper.get("year"))
-
-        journal_info = paper.get("journal") or {}
-        pages_str = clean_text(journal_info.get("pages"))
-        num_pages = calculate_num_pages(pages_str)
-
-        if paper_id not in self.papers:
-            self.papers[paper_id] = {
-                "paper_id": paper_id, "title": title, "doi": doi, 
-                "num_pages": num_pages, "abstract_summary": abstract, 
-                "year_published": year or ""
-            }
-
-        for topic in (paper.get("fieldsOfStudy") or []):
-            topic_id = self.add_topic(str(topic))
-            if topic_id:
-                self.rel_has_keyword.add((paper_id, topic_id, 1.0)) # 1.0 is default relevance_score
-
-        authors = paper.get("authors") or []
-        for idx, author in enumerate(authors):
-            author_id = author.get("authorId") or slugify(author.get("name", f"unknown_author_{idx}"))
-            name = clean_text(author.get("name"))
-            ext_ids = author.get("externalIds") or {}
-            orcid = ext_ids.get("ORCID", "")
-            
-            if author_id not in self.authors:
-                self.authors[author_id] = {"author_id": author_id, "name": name, "orcid": orcid}
-            
-            role = "main" if idx == 0 else "co-author"
-            is_corresponding = True if idx == 0 else False
-            self.rel_writes.add((author_id, paper_id, role, is_corresponding, idx + 1))
-
-            affiliations = author.get("affiliations") or []
-            if affiliations:
-                org_id = self.add_organization(str(affiliations[0]))
-                self.rel_affiliated_with.add((author_id, org_id))
-
-        proceedings_id, volume_id = self.build_publication_container(paper, dblp_info)
+    def enrich_with_synthetic_data(self, paper_id, author_ids):
+        import random
         
-        if proceedings_id:
-            self.rel_published_in_proceedings.add((paper_id, proceedings_id, pages_str))
-        if volume_id:
-            self.rel_published_in_volume.add((paper_id, volume_id, pages_str))
+        # --- TOPICS ---
+        topic_list = ["GraphDB", "Cypher", "NoSQL", "BigData"]
+        for area in topic_list:
+            t_id = f"t_{area.lower()}"
+            self.topics.append({"topic_id": t_id, "name": area, "area": "Computer Science"})
+            self.paper_has_keyword.append({
+                "paper_id": paper_id, "topic_id": t_id, "relevance_score": 0.9
+            })
 
-    def add_citation_edges(self, source_paper_id: str, details: dict):
-        for ref in (details.get("references") or [])[:MAX_REFERENCES_PER_PAPER]:
-            ref_id = ref.get("paperId")
-            if ref_id:
-                self.rel_cites.add((source_paper_id, ref_id, "background", 1.0))
+        # --- ORGANIZATIONS ---
+        for a_id in author_ids:
+            org_id = f"org_{random.randint(1, 3)}"
+            self.organizations.append({
+                "org_id": org_id, 
+                "name": f"Technical University {org_id[-1]}", 
+                "type": "University"
+            })
+            self.author_affiliated_with.append({"author_id": a_id, "org_id": org_id})
 
-        for cit in (details.get("citations") or [])[:MAX_CITATIONS_PER_PAPER]:
-            cit_id = cit.get("paperId")
-            if cit_id:
-                self.rel_cites.add((cit_id, source_paper_id, "background", 1.0))
+        # --- REVIEWS ---
+        rev_id = f"rev_{paper_id}"
+        self.reviews.append({
+            "review_id": rev_id,
+            "content_description": "Great contribution to the field.",
+            "decision": "Accepted"
+        })
+        self.review_evaluates_paper.append({"review_id": rev_id, "paper_id": paper_id})
+        # Un autor aleatorio (que no sea el del paper) provee la review
+        self.author_provides_review.append({"author_id": "auth_external_01", "review_id": rev_id})
+        self.authors.append({"author_id": "auth_external_01", "name": "Peer Reviewer", "orcid": "N/A"})
 
-    def generate_mock_reviews(self):
-        """Generates 3 dummy reviews per paper strictly following business logic constraints."""
-        all_authors = list(self.authors.keys())
-        if len(all_authors) < 4:
-            return # Not enough authors in the graph to mock reviews
+        # --- VENUES (Journal o Conference) ---
+        is_journal = random.choice([True, False])
+        year_val = random.randint(2020, 2024)
+        y_id = f"y_{year_val}"
+        self.years.append({"year_id": y_id, "value": year_val})
+
+        if is_journal:
+            j_id = "journal_graph_01"
+            self.journals.append({"journal_id": j_id, "name": "Journal of Graph Theory", "issn": "000-111", "impact_factor": 5.2})
+            vol_id = f"vol_{paper_id}"
+            self.volumes.append({"volume_node_id": vol_id, "volume_id": "Vol. 1", "issue_number": "1"})
+            self.volume_part_of.append({"volume_node_id": vol_id, "journal_id": j_id})
+            self.paper_published_in_proceedings.append({"paper_id": paper_id, "proceedings_id": vol_id})
+        else:
+            conf_id = "conf_sdm_01"
+            self.conferences.append({"conference_id": conf_id, "name": "SDM Conference", "acronym": "SDM", "ranking": "A"})
+            edit_id = f"edit_{year_val}"
+            self.editions.append({"edition_id": edit_id, "number": year_val - 2000, "start_date": "2024-01-01", "end_date": "2024-01-05"})
+            self.edition_part_of.append({"edition_id": edit_id, "parent_id": conf_id, "parent_label": "Conference"})
+            self.edition_dated_in.append({"edition_id": edit_id, "year_id": y_id})
             
-        for paper_id in self.papers.keys():
-            # Find authors who wrote this paper so they don't review it
-            writers_of_this_paper = {a for (a, p, _, _, _) in self.rel_writes if p == paper_id}
-            eligible_reviewers = [a for a in all_authors if a not in writers_of_this_paper]
-            
-            # Pick 3 random reviewers
-            selected_reviewers = random.sample(eligible_reviewers, min(3, len(eligible_reviewers)))
-            
-            for i, reviewer_id in enumerate(selected_reviewers):
-                review_id = f"rev_{paper_id}_{reviewer_id}"
-                decision = random.choice(["Accept", "Accept", "Weak Accept", "Reject"])
-                content = f"This is a mock review. The methodology was {'solid' if 'Accept' in decision else 'flawed'}."
-                
-                # Add Node
-                self.reviews[review_id] = {"content_description": content, "decision": decision}
-                
-                # Add Relationships
-                self.rel_provides_review.add((reviewer_id, review_id))
-                self.rel_evaluates_paper.add((review_id, paper_id))
-
-    def write_csv(self, path: Path, fieldnames: List[str], rows: List[dict], include_id_in_row=False, id_col_name="id"):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open("w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            for key, data in rows:
-                row = data.copy()
-                if include_id_in_row:
-                    row[id_col_name] = key
-                # Only write keys that are in fieldnames
-                writer.writerow({k: row.get(k, "") for k in fieldnames})
-
-    def export_all(self, output_dir: Path):
-        output_dir.mkdir(parents=True, exist_ok=True)
+            proc_id = f"proc_{edit_id}"
+            self.proceedings.append({"proceedings_id": proc_id, "title": f"Proceedings {year_val}", "publisher": "ACM"})
+            self.proceedings_belongs_to.append({"proceedings_id": proc_id, "edition_id": edit_id})
+            self.paper_published_in_proceedings.append({"paper_id": paper_id, "proceedings_id": proc_id})
+    def export_all(self, output_dir):
+        path = Path(output_dir)
+        path.mkdir(parents=True, exist_ok=True)
         
-        # Make sure reviews are generated before export!
-        self.generate_mock_reviews()
+        all_data = {
+            "papers": self.papers, "authors": self.authors, "topics": self.topics,
+            "organizations": self.organizations, "reviews": self.reviews,
+            "conferences": self.conferences, "workshops": self.workshops,
+            "journals": self.journals, "editions": self.editions,
+            "volumes": self.volumes, "proceedings": self.proceedings,
+            "years": self.years, "cities": self.cities,
+            "author_writes": self.author_writes, "paper_cites": self.paper_cites,
+            "paper_has_keyword": self.paper_has_keyword, 
+            "author_affiliated_with": self.author_affiliated_with,
+            "review_evaluates_paper": self.review_evaluates_paper, 
+            "author_provides_review": self.author_provides_review,
+            "proceedings_belongs_to": self.proceedings_belongs_to, 
+            "edition_part_of": self.edition_part_of,
+            "edition_dated_in": self.edition_dated_in, 
+            "edition_placed_at": self.edition_placed_at,
+            "paper_published_in_proceedings": self.paper_published_in_proceedings
+        }
 
-        # Nodes (Matched exactly to schema attributes)
-        self.write_csv(output_dir / "papers.csv", ["paper_id", "title", "doi", "num_pages", "abstract_summary", "year_published"], self.papers.items(), True, "paper_id")
-        self.write_csv(output_dir / "authors.csv", ["author_id", "name", "orcid"], self.authors.items(), True, "author_id")
-        self.write_csv(output_dir / "organizations.csv", ["org_id", "name", "type"], self.organizations.items(), True, "org_id")
-        self.write_csv(output_dir / "topics.csv", ["topic_id", "name", "area"], self.topics.items(), True, "topic_id")
-        self.write_csv(output_dir / "years.csv", ["year_id", "value"], self.years.items(), True, "year_id")
-        self.write_csv(output_dir / "cities.csv", ["city_id", "name", "country"], self.cities.items(), True, "city_id")
-        self.write_csv(output_dir / "editions.csv", ["edition_id", "number", "start_date", "end_date"], self.editions.items(), True, "edition_id")
-        self.write_csv(output_dir / "proceedings.csv", ["proceedings_id", "title", "publisher"], self.proceedings.items(), True, "proceedings_id")
-        self.write_csv(output_dir / "volumes.csv", ["volume_node_id", "volume_id", "issue_number"], self.volumes.items(), True, "volume_node_id")
-        self.write_csv(output_dir / "journals.csv", ["journal_id", "name", "issn", "impact_factor"], self.journals.items(), True, "journal_id")
-        self.write_csv(output_dir / "conferences.csv", ["conference_id", "name", "acronym", "ranking"], self.conferences.items(), True, "conference_id")
-        self.write_csv(output_dir / "workshops.csv", ["workshop_id", "name", "acronym"], self.workshops.items(), True, "workshop_id")
-        self.write_csv(output_dir / "reviews.csv", ["review_id", "content_description", "decision"], self.reviews.items(), True, "review_id")
-
-        # Relationships
-        def write_rel(filename, headers, data):
-            with (output_dir / filename).open("w", newline="", encoding="utf-8") as f:
-                writer = csv.writer(f)
-                writer.writerow(headers)
-                writer.writerows(sorted(data))
-
-        write_rel("paper_cites.csv", ["src_paper_id", "dst_paper_id", "context", "rank_score"], self.rel_cites)
-        write_rel("paper_has_keyword.csv", ["paper_id", "topic_id", "relevance_score"], self.rel_has_keyword)
-        write_rel("paper_published_in_proceedings.csv", ["paper_id", "proceedings_id", "pages"], self.rel_published_in_proceedings)
-        write_rel("paper_published_in_volume.csv", ["paper_id", "volume_id", "pages"], self.rel_published_in_volume)
-        write_rel("author_writes.csv", ["author_id", "paper_id", "role", "is_corresponding", "author_order"], self.rel_writes)
-        write_rel("author_affiliated_with.csv", ["author_id", "org_id"], self.rel_affiliated_with)
-        write_rel("author_provides_review.csv", ["author_id", "review_id"], self.rel_provides_review)
-        write_rel("review_evaluates_paper.csv", ["review_id", "paper_id"], self.rel_evaluates_paper)
-        write_rel("proceedings_belongs_to.csv", ["proceedings_id", "edition_id"], self.rel_proceedings_belongs_to)
-        write_rel("edition_part_of.csv", ["edition_id", "parent_label", "parent_id"], self.rel_edition_part_of)
-        write_rel("edition_held_in.csv", ["edition_id", "city_id"], self.rel_edition_held_in)
-        write_rel("edition_dated_in.csv", ["edition_id", "year_id"], self.rel_edition_dated_in)
-        write_rel("volume_part_of.csv", ["volume_id", "journal_id"], self.rel_volume_part_of)
-        write_rel("volume_dated_in.csv", ["volume_id", "year_id"], self.rel_volume_dated_in)
+        for name, data in all_data.items():
+            df = pd.DataFrame(data)
+            if not df.empty:
+                # CRITICO: Eliminar duplicados basados en el ID de cada entidad
+                id_col = None
+                if "paper_id" in df.columns: id_col = "paper_id"
+                elif "author_id" in df.columns: id_col = "author_id"
+                elif "org_id" in df.columns: id_col = "org_id"
+                elif "topic_id" in df.columns: id_col = "topic_id"
+                elif "review_id" in df.columns: id_col = "review_id"
+                
+                if id_col:
+                    df = df.drop_duplicates(subset=[id_col])
+                else:
+                    df = df.drop_duplicates()
+                
+                df.to_csv(path / f"{name}.csv", index=False)
