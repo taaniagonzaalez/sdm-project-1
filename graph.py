@@ -326,18 +326,25 @@ class GraphBuilder:
                 self.rel_proceedings_belongs_to.add((p_id, e_id))
 
         # --- 4. GENERATE AUTHORS & AFFILIATIONS ---
-        synth_authors = []
-        for _ in range(50 * scale_multiplier):
-            a_id = f"auth_{uuid.uuid4().hex[:8]}"
-            self.authors[a_id] = {"author_id": a_id, "name": fake.name(), "orcid": fake.bothify(text='0000-000#-####-####')}
-            synth_authors.append(a_id)
-            # Relationship: Author AFFILIATED_WITH Organization (assuming you have this set)
-            if hasattr(self, 'rel_affiliated_with'):
-                self.rel_affiliated_with.add((a_id, random.choice(synth_orgs)))
+                synth_authors = []
+                for _ in range(5 * scale_multiplier):
+                    a_id = f"auth_{uuid.uuid4().hex[:8]}"
+                    
+                    # Seleccionamos una organización de las ya creadas para que el nombre coincida
+                    random_org_id = random.choice(synth_orgs)
+                    org_name = self.organizations[random_org_id]["name"]
+
+                    self.authors[a_id] = {
+                        "author_id": a_id, 
+                        "name": fake.name(), 
+                        "orcid": fake.bothify(text='0000-000#-####-####'),
+                        "affiliation": org_name  
+                    }
+                    synth_authors.append(a_id)
 
         # --- 5. GENERATE PAPERS & PUBLICATIONS ---
         synth_papers = []
-        for _ in range(100 * scale_multiplier):
+        for _ in range(10 * scale_multiplier):
             p_id = f"paper_{uuid.uuid4().hex[:12]}"
             self.papers[p_id] = {
                 "paper_id": p_id, "title": fake.catch_phrase().title(), "doi": f"10.1000/synth.{random.randint(1000, 99999)}",
@@ -417,7 +424,7 @@ class GraphBuilder:
 
         # Nodes (Matched exactly to schema attributes)
         self.write_csv(output_dir / "papers.csv", ["paper_id", "title", "doi", "num_pages", "abstract_summary", "year_published"], self.papers.items(), True, "paper_id")
-        self.write_csv(output_dir / "authors.csv", ["author_id", "name", "orcid"], self.authors.items(), True, "author_id")
+        self.write_csv(output_dir / "authors.csv", ["author_id", "name", "orcid", "affiliation"], self.authors.items(), True, "author_id")
         self.write_csv(output_dir / "organizations.csv", ["org_id", "name", "type"], self.organizations.items(), True, "org_id")
         self.write_csv(output_dir / "topics.csv", ["topic_id", "name", "area"], self.topics.items(), True, "topic_id")
         self.write_csv(output_dir / "years.csv", ["year_id", "value"], self.years.items(), True, "year_id")
