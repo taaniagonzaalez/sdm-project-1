@@ -29,6 +29,7 @@ CHUNK_SIZE = 10
 
 # Output directory for CSV files
 OUTPUT_DIR = Path("graph_csv")
+CSV_PATH = os.getenv("CSV_PATH")
 
 # Optional Semantic Scholar API key
 S2_API_KEY = os.getenv("SEMANTIC_SCHOLAR_API_KEY")

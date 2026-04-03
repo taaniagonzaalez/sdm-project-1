@@ -1,5 +1,5 @@
 import os
-from config import DEFAULT_QUERY, SEARCH_LIMIT, OUTPUT_DIR, TOTAL_TO_DOWNLOAD, CHUNK_SIZE, NEO4J_URI, NEO4J_PASSWORD, NEO4J_USER
+from config import DEFAULT_QUERY, SEARCH_LIMIT, OUTPUT_DIR, TOTAL_TO_DOWNLOAD, CHUNK_SIZE, NEO4J_URI, NEO4J_PASSWORD, NEO4J_USER, CSV_PATH
 from clients import SemanticScholarClient, DBLPClient, GraphTransformerApp
 from graph import GraphBuilder
 import time
@@ -76,7 +76,7 @@ def main(download_flag):
         # Step 1: Connect and process
         app = GraphTransformerApp(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
         app.clear_database()      # Clean start
-        app.load_initial_data()   # Create A.1 model
+        app.load_initial_data(CSV_PATH)   # Create A.1 model
         app.run_transformation_a3()  # Evolve to A.3 model
     except Exception as e:
         raise Exception(e)

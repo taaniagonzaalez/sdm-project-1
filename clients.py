@@ -65,93 +65,93 @@ class GraphTransformerApp:
             print("Wiping existing database clean...")
             session.run("MATCH (n) DETACH DELETE n")
 
-    def load_initial_data(self):
+    def load_initial_data(self, CSV_PATH):
         """Loads the A.1 model from the generated CSV files."""
         # Ensure all 27 CSV files are in the Neo4j 'import' folder!
         load_queries = [
             # ==========================================
             # 1. LOAD NODES
             # ==========================================
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/papers.csv' AS row
-            MERGE (p:Paper {paper_id: row.paper_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/papers.csv' AS row
+            MERGE (p:Paper {{paper_id: row.paper_id}})
             SET p.title = row.title, 
                 p.doi = row.doi,
                 p.num_pages = toInteger(row.num_pages),
                 p.abstract_summary = row.abstract_summary,
                 p.year_published = toInteger(row.year_published);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/authors.csv' AS row
-            MERGE (a:Author {author_id: row.author_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/authors.csv' AS row
+            MERGE (a:Author {{author_id: row.author_id}})
             SET a.name = row.name,
                 a.orcid = row.orcid,
                 a.affiliation = row.affiliation;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/organizations.csv' AS row
-            MERGE (o:Organization {org_id: row.org_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/organizations.csv' AS row
+            MERGE (o:Organization {{org_id: row.org_id}})
             SET o.name = row.name,
                 o.type = row.type;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/topics.csv' AS row
-            MERGE (t:Topic {topic_id: row.topic_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/topics.csv' AS row
+            MERGE (t:Topic {{topic_id: row.topic_id}})
             SET t.name = row.name,
                 t.area = row.area;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/years.csv' AS row
-            MERGE (y:Year {year_id: row.year_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/years.csv' AS row
+            MERGE (y:Year {{year_id: row.year_id}})
             SET y.value = toInteger(row.value);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/cities.csv' AS row
-            MERGE (c:City {city_id: row.city_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/cities.csv' AS row
+            MERGE (c:City {{city_id: row.city_id}})
             SET c.name = row.name,
                 c.country = row.country;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/editions.csv' AS row
-            MERGE (e:Edition {edition_id: row.edition_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/editions.csv' AS row
+            MERGE (e:Edition {{edition_id: row.edition_id}})
             SET e.number = toInteger(row.number),
                 e.start_date = row.start_date,
                 e.end_date = row.end_date;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/proceedings.csv' AS row
-            MERGE (pr:Proceedings {proceedings_id: row.proceedings_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/proceedings.csv' AS row
+            MERGE (pr:Proceedings {{proceedings_id: row.proceedings_id}})
             SET pr.title = row.title,
                 pr.publisher = row.publisher;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/volumes.csv' AS row
-            MERGE (v:Volume {volume_node_id: row.volume_node_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/volumes.csv' AS row
+            MERGE (v:Volume {{volume_node_id: row.volume_node_id}})
             SET v.volume_id = row.volume_id,
                 v.issue_number = row.issue_number;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/journals.csv' AS row
-            MERGE (j:Journal {journal_id: row.journal_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/journals.csv' AS row
+            MERGE (j:Journal {{journal_id: row.journal_id}})
             SET j.name = row.name,
                 j.issn = row.issn;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/conferences.csv' AS row
-            MERGE (conf:Conference {conference_id: row.conference_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/conferences.csv' AS row
+            MERGE (conf:Conference {{conference_id: row.conference_id}})
             SET conf.name = row.name,
                 conf.acronym = row.acronym,
                 conf.ranking = row.ranking;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/workshops.csv' AS row
-            MERGE (w:Workshop {workshop_id: row.workshop_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/workshops.csv' AS row
+            MERGE (w:Workshop {{workshop_id: row.workshop_id}})
             SET w.name = row.name,
                 w.acronym = row.acronym;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/reviews.csv' AS row
-            MERGE (rev:Review {review_id: row.review_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/reviews.csv' AS row
+            MERGE (rev:Review {{review_id: row.review_id}})
             SET rev.content_description = row.content_description,
                 rev.decision = row.decision;
             """,
@@ -159,94 +159,94 @@ class GraphTransformerApp:
             # ==========================================
             # 2. LOAD RELATIONSHIPS
             # ==========================================
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/paper_cites.csv' AS row
-            MATCH (src:Paper {paper_id: row.src_paper_id})
-            MATCH (dst:Paper {paper_id: row.dst_paper_id})
-            MERGE (src)-[:CITES {context: row.context, rank_score: toFloat(row.rank_score)}]->(dst);
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/paper_cites.csv' AS row
+            MATCH (src:Paper {{paper_id: row.src_paper_id}})
+            MATCH (dst:Paper {{paper_id: row.dst_paper_id}})
+            MERGE (src)-[:CITES {{context: row.context, rank_score: toFloat(row.rank_score)}}]->(dst);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/paper_has_keyword.csv' AS row
-            MATCH (p:Paper {paper_id: row.paper_id})
-            MATCH (t:Topic {topic_id: row.topic_id})
-            MERGE (p)-[:HAS_KEYWORD {relevance_score: toFloat(row.relevance_score)}]->(t);
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/paper_has_keyword.csv' AS row
+            MATCH (p:Paper {{paper_id: row.paper_id}})
+            MATCH (t:Topic {{topic_id: row.topic_id}})
+            MERGE (p)-[:HAS_KEYWORD {{relevance_score: toFloat(row.relevance_score)}}]->(t);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/paper_published_in_proceedings.csv' AS row 
-            MATCH (p:Paper {paper_id: row.paper_id}), (pr:Proceedings {proceedings_id: row.proceedings_id}) 
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/paper_published_in_proceedings.csv' AS row 
+            MATCH (p:Paper {{paper_id: row.paper_id}}), (pr:Proceedings {{proceedings_id: row.proceedings_id}}) 
             MERGE (p)-[r:PUBLISHED_IN_PROCEEDINGS]->(pr) 
             SET r.pages = row.pages;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/paper_published_in_volume.csv' AS row 
-            MATCH (p:Paper {paper_id: row.paper_id}), (v:Volume {volume_node_id: row.volume_id}) 
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/paper_published_in_volume.csv' AS row 
+            MATCH (p:Paper {{paper_id: row.paper_id}}), (v:Volume {{volume_node_id: row.volume_id}}) 
             MERGE (p)-[r:PUBLISHED_IN_VOLUME]->(v) 
             SET r.pages = row.pages;
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/author_writes.csv' AS row
-            MATCH (a:Author {author_id: row.author_id})
-            MATCH (p:Paper {paper_id: row.paper_id})
-            MERGE (a)-[:WRITES {
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/author_writes.csv' AS row
+            MATCH (a:Author {{author_id: row.author_id}})
+            MATCH (p:Paper {{paper_id: row.paper_id}})
+            MERGE (a)-[:WRITES {{
                 role: row.role, 
                 is_corresponding: row.is_corresponding = 'True', 
                 author_order: toInteger(row.author_order)
-            }]->(p);
+            }}]->(p);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/author_provides_review.csv' AS row
-            MATCH (a:Author {author_id: row.author_id})
-            MATCH (rev:Review {review_id: row.review_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/author_provides_review.csv' AS row
+            MATCH (a:Author {{author_id: row.author_id}})
+            MATCH (rev:Review {{review_id: row.review_id}})
             MERGE (a)-[:PROVIDES_REVIEW]->(rev);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/review_evaluates_paper.csv' AS row
-            MATCH (rev:Review {review_id: row.review_id})
-            MATCH (p:Paper {paper_id: row.paper_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/review_evaluates_paper.csv' AS row
+            MATCH (rev:Review {{review_id: row.review_id}})
+            MATCH (p:Paper {{paper_id: row.paper_id}})
             MERGE (rev)-[:EVALUATES_PAPER]->(p);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/proceedings_belongs_to.csv' AS row
-            MATCH (pr:Proceedings {proceedings_id: row.proceedings_id})
-            MATCH (e:Edition {edition_id: row.edition_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/proceedings_belongs_to.csv' AS row
+            MATCH (pr:Proceedings {{proceedings_id: row.proceedings_id}})
+            MATCH (e:Edition {{edition_id: row.edition_id}})
             MERGE (pr)-[:BELONGS_TO]->(e);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/edition_part_of.csv' AS row
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/edition_part_of.csv' AS row
             WITH row WHERE row.parent_label = 'Conference'
-            MATCH (e:Edition {edition_id: row.edition_id})
-            MATCH (c:Conference {conference_id: row.parent_id})
+            MATCH (e:Edition {{edition_id: row.edition_id}})
+            MATCH (c:Conference {{conference_id: row.parent_id}})
             MERGE (e)-[:PART_OF]->(c);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/edition_part_of.csv' AS row
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/edition_part_of.csv' AS row
             WITH row WHERE row.parent_label = 'Workshop'
-            MATCH (e:Edition {edition_id: row.edition_id})
-            MATCH (w:Workshop {workshop_id: row.parent_id})
+            MATCH (e:Edition {{edition_id: row.edition_id}})
+            MATCH (w:Workshop {{workshop_id: row.parent_id}})
             MERGE (e)-[:PART_OF]->(w);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/edition_held_in.csv' AS row
-            MATCH (e:Edition {edition_id: row.edition_id})
-            MATCH (c:City {city_id: row.city_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/edition_held_in.csv' AS row
+            MATCH (e:Edition {{edition_id: row.edition_id}})
+            MATCH (c:City {{city_id: row.city_id}})
             MERGE (e)-[:HELD_IN]->(c);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/edition_dated_in.csv' AS row
-            MATCH (e:Edition {edition_id: row.edition_id})
-            MATCH (y:Year {year_id: row.year_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/edition_dated_in.csv' AS row
+            MATCH (e:Edition {{edition_id: row.edition_id}})
+            MATCH (y:Year {{year_id: row.year_id}})
             MERGE (e)-[:DATED_IN]->(y);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/volume_part_of.csv' AS row
-            MATCH (v:Volume {volume_node_id: row.volume_id})
-            MATCH (j:Journal {journal_id: row.journal_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/volume_part_of.csv' AS row
+            MATCH (v:Volume {{volume_node_id: row.volume_id}})
+            MATCH (j:Journal {{journal_id: row.journal_id}})
             MERGE (v)-[:PART_OF]->(j);
             """,
-            """
-            LOAD CSV WITH HEADERS FROM 'file:///Users/tania_priv/Documents/sdm-project-1/graph_csv/volume_dated_in.csv' AS row
-            MATCH (v:Volume {volume_node_id: row.volume_id})
-            MATCH (y:Year {year_id: row.year_id})
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/volume_dated_in.csv' AS row
+            MATCH (v:Volume {{volume_node_id: row.volume_id}})
+            MATCH (y:Year {{year_id: row.year_id}})
             MERGE (v)-[:DATED_IN]->(y);
             """
         ]
