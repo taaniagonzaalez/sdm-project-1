@@ -3,6 +3,13 @@ from config import SEMANTIC_SCHOLAR_API, DBLP_PUBL_API
 from utils import request_json, s2_headers
 from neo4j import GraphDatabase
 
+
+class ErrorImportingData(Exception):
+    pass
+
+class ErrorModelling(Exception):
+    pass
+
 class SemanticScholarClient:
     def search_papers(self, query: str, limit: int = 20, offset: int = 0) -> List[dict]:
         url = f"{SEMANTIC_SCHOLAR_API}/paper/search"
@@ -51,6 +58,12 @@ class GraphTransformerApp:
     def close(self):
         # Close the connection when done
         self.driver.close()
+    
+    def clear_database(self):
+        """Wipes the database clean so we can start fresh."""
+        with self.driver.session() as session:
+            print("Wiping existing database clean...")
+            session.run("MATCH (n) DETACH DELETE n")
 
     def load_initial_data(self):
         """Loads the A.1 model from the generated CSV files."""
@@ -251,6 +264,8 @@ class GraphTransformerApp:
                     session.run(query)
                 except Exception as e:
                     print(f"Error executing Query {i}:\n{e}")
+                    raise ErrorImportingData(e)
+                    
             print("Initial A.1 data loaded successfully!")
 
     def run_transformation_a3(self):
@@ -320,5 +335,9 @@ class GraphTransformerApp:
         with self.driver.session() as session:
             for i, query in enumerate(queries, 1):
                 print(f"Executing Query {i}/{len(queries)}...")
-                session.run(query)
+                try:
+                    session.run(query)
+                except Exception as e:
+                    print("Error modelling data")
+                    raise ErrorModelling(e)
             print("Transformation complete! The graph is now updated to the A.3 model.")

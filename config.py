@@ -12,10 +12,11 @@ SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1"
 DBLP_PUBL_API = "https://dblp.org/search/publ/api"
 
 # Keys
-NEO4J_URI=os.getenv(NEO4J_URI)
-NEO4J_USER=os.getenv(NEO4J_USER)
-NEO4J_PASSWORD=os.getenv(NEO4J_PASSWORD)
-SEMANTIC_SCHOLAR_API_KEY=os.getenv(SEMANTIC_SCHOLAR_API_KEY)
+NEO4J_URI=os.getenv("NEO4J_URI")
+NEO4J_USER=os.getenv("NEO4J_USER")
+NEO4J_PASSWORD=os.getenv("NEO4J_PASSWORD")
+NEO4J_IMPORT_DIR=os.getenv("NEO4J_IMPORT_DIR")
+SEMANTIC_SCHOLAR_API_KEY=os.getenv("SEMANTIC_SCHOLAR_API_KEY")
 
 # Default search parameters
 DEFAULT_QUERY = "graph databases"
