@@ -274,7 +274,6 @@ class GraphBuilder:
         write_rel("paper_published_in_proceedings.csv", ["paper_id", "proceedings_id", "pages"], self.rel_published_in_proceedings)
         write_rel("paper_published_in_volume.csv", ["paper_id", "volume_id", "pages"], self.rel_published_in_volume)
         write_rel("author_writes.csv", ["author_id", "paper_id", "role", "is_corresponding", "author_order"], self.rel_writes)
-        write_rel("author_affiliated_with.csv", ["author_id", "org_id"], self.rel_affiliated_with)
         write_rel("author_provides_review.csv", ["author_id", "review_id"], self.rel_provides_review)
         write_rel("review_evaluates_paper.csv", ["review_id", "paper_id"], self.rel_evaluates_paper)
         write_rel("proceedings_belongs_to.csv", ["proceedings_id", "edition_id"], self.rel_proceedings_belongs_to)

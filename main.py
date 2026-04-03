@@ -1,6 +1,6 @@
 import os
-from config import DEFAULT_QUERY, SEARCH_LIMIT, OUTPUT_DIR, TOTAL_TO_DOWNLOAD, CHUNK_SIZE
-from clients import SemanticScholarClient, DBLPClient
+from config import DEFAULT_QUERY, SEARCH_LIMIT, OUTPUT_DIR, TOTAL_TO_DOWNLOAD, CHUNK_SIZE, NEO4J_URI, NEO4J_PASSWORD, NEO4J_USER
+from clients import SemanticScholarClient, DBLPClient, GraphTransformerApp
 from graph import GraphBuilder
 import time
 
@@ -54,11 +54,20 @@ def main():
         except Exception as e:
             print(f"  warning: could not enrich {paper_id}: {e}")
 
-    print("[4/4] Writing CSV files...")
+    print("[4/5] Writing CSV files...")
     graph.export_all(OUTPUT_DIR)
 
     print(f"Done. CSV files written to: {OUTPUT_DIR.resolve()}")
     print("Recommended next step: import them into Neo4j with LOAD CSV or neo4j-admin import.")
+
+    print("[5/5] Re-modelling exercice A.3.")
+
+    app = GraphTransformerApp(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
+    try:
+        app.run_transformation_a3()
+    finally:
+        app.close()
+
 
 if __name__ == "__main__":
     main()
