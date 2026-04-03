@@ -429,7 +429,7 @@ class GraphBuilder:
         self.write_csv(output_dir / "conferences.csv", ["conference_id", "name", "acronym", "ranking"], self.conferences.items(), True, "conference_id")
         self.write_csv(output_dir / "workshops.csv", ["workshop_id", "name", "acronym"], self.workshops.items(), True, "workshop_id")
         self.write_csv(output_dir / "reviews.csv", ["review_id", "content_description", "decision"], self.reviews.items(), True, "review_id")
-        self.write_csv(output_dir / "abstracts.csv", ["abstract_id", "content", "word_count"], self.reviews.items(), True, "abstract_id")
+        self.write_csv(output_dir / "abstracts.csv", ["abstract_id", "content", "word_count"], self.abstracts.items(), True, "abstract_id")
 
         # Relationships
         def write_rel(filename, headers, data):
@@ -451,4 +451,4 @@ class GraphBuilder:
         write_rel("edition_dated_in.csv", ["edition_id", "year_id"], self.rel_edition_dated_in)
         write_rel("volume_part_of.csv", ["volume_id", "journal_id"], self.rel_volume_part_of)
         write_rel("volume_dated_in.csv", ["volume_id", "year_id"], self.rel_volume_dated_in)
-        write_rel("rel_starts_with.csv", ["paper_id", "abstract_id"], self.rel_volume_dated_in)
+        write_rel("paper_starts_with.csv", ["paper_id", "abstract_id"], self.rel_starts_with)
