@@ -21,7 +21,7 @@ RETURN count(a) AS Autores_Sin_Limpiar;
 // Verifica que ambos tipos de publicaciones ahora usan PUBLISHED_AT
 MATCH (p:Paper)-[r:PUBLISHED_AT]->(target)
 RETURN p.title AS Paper, 
-       labels(target)[0] AS Tipo_Destino (Volume/Proceedings), 
+       labels(target)[0] AS Tipo_Destino, 
        r.pages AS Paginas
 LIMIT 10;
 
