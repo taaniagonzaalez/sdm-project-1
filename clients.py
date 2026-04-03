@@ -263,75 +263,76 @@ class GraphTransformerApp:
             print("Initial A.1 data loaded successfully!")
 
     def run_transformation_a3(self):
-        # List of all the Cypher queries needed to update the schema
-        queries = [
-            # 1. Extract Abstract
-            """
-            MATCH (p:Paper)
-            WHERE p.abstract_summary IS NOT NULL AND p.abstract_summary <> ''
-            MERGE (a:Abstract {content: p.abstract_summary})
-            SET a.word_count = size(split(p.abstract_summary, ' '))
-            MERGE (p)-[:STARTS_WITH]->(a)
-            REMOVE p.abstract_summary;
-            """,
-            
-            # 2. Rename HAS_KEYWORD to CONTAINS
-            """
-            MATCH (p:Paper)-[r:HAS_KEYWORD]->(t:Topic)
-            MERGE (p)-[new_r:CONTAINS]->(t)
-            SET new_r = properties(r)
-            DELETE r;
-            """,
-            
-            # 3. Restructure Proceedings and Edition
-            """
-            MATCH (p:Paper)-[r:PUBLISHED_IN_PROCEEDINGS]->(pr:Proceedings)
-            MERGE (p)-[new_r1:APPEAR_IN]->(pr)
-            WITH p, pr, r
-            MATCH (pr)-[:BELONGS_TO]->(e:Edition)
-            MERGE (p)-[new_r2:PUBLISHED_AT]->(e)
-            SET new_r2.pages = r.pages
-            DELETE r;
-            """,
+            # Cada string en esta lista debe ser UNA SOLA instrucción de Cypher
+            queries = [
+                # 1. Transformación de Reviews: Separar el autor de la review
+                """
+                MATCH (a:Author)-[r:PROVIDES_REVIEW]->(rev:Review)
+                MERGE (a)-[:SUBMITTED]->(rev)
+                """,
+                
+                # 2. Transformación de Reviews: Conectar la review con el paper
+                """
+                MATCH (rev:Review)-[r:EVALUATES_PAPER]->(p:Paper)
+                MERGE (rev)-[:REVIEWS]->(p)
+                """,
 
-            # 4. Rename Volume connection
-            """
-            MATCH (p:Paper)-[r:PUBLISHED_IN_VOLUME]->(v:Volume)
-            MERGE (p)-[new_r:PUBLISHED_AT]->(v)
-            SET new_r = properties(r)
-            DELETE r;
-            """,
+                # 3. Borrar relaciones antiguas (Aislado para evitar el error de '2 statements')
+                """
+                MATCH (a:Author)-[r:PROVIDES_REVIEW]->(rev:Review)-[r2:EVALUATES_PAPER]->(p:Paper)
+                DELETE r, r2
+                """,
+                
+                # 4. Transformación de Afiliaciones (Usando funciones nativas para evitar error de APOC)
+                """
+                MATCH (a:Author)
+                WHERE a.affiliation_name IS NOT NULL
+                MERGE (o:Organization {name: a.affiliation_name})
+                ON CREATE SET 
+                    o.org_id = "org_" + replace(toLower(a.affiliation_name), " ", "_"),
+                    o.type = CASE 
+                        WHEN toLower(a.affiliation_name) CONTAINS "university" THEN "University" 
+                        ELSE "Company" 
+                    END
+                """,
 
-            # 5. Rename HELD_IN to PLACED_AT
-            """
-            MATCH (e:Edition)-[r:HELD_IN]->(c:City)
-            MERGE (e)-[new_r:PLACED_AT]->(c)
-            SET new_r = properties(r)
-            DELETE r;
-            """,
+                # 5. Crear la relación de afiliación
+                """
+                MATCH (a:Author), (o:Organization)
+                WHERE a.affiliation_name = o.name
+                MERGE (a)-[:AFFILIATED_WITH]->(o)
+                """,
 
-            # 6. Simplify Review Relationships
-            """
-            MATCH (a:Author)-[r:PROVIDES_REVIEW]->(rev:Review)
-            MERGE (a)-[new_r:PROVIDES]->(rev)
-            SET new_r = properties(r)
-            DELETE r;
-            """,
-            """
-            MATCH (rev:Review)-[r:EVALUATES_PAPER]->(p:Paper)
-            MERGE (rev)-[new_r:EVALUATES]->(p)
-            SET new_r = properties(r)
-            DELETE r;
-            """
-        ]
+                # 6. Limpieza de propiedad antigua
+                """
+                MATCH (a:Author) WHERE a.affiliation_name IS NOT NULL
+                REMOVE a.affiliation_name
+                """,
 
-        # Execute each query in a database session
-        with self.driver.session() as session:
-            for i, query in enumerate(queries, 1):
-                print(f"Executing Query {i}/{len(queries)}...")
-                try:
-                    session.run(query)
-                except Exception as e:
-                    print("Error modelling data")
-                    raise ErrorModelling(e)
-            print("Transformation complete! The graph is now updated to the A.3 model.")
+                # 7. Unificación de publicaciones (Proceedings)
+                """
+                MATCH (p:Paper)-[r:PUBLISHED_IN_PROCEEDINGS]->(pr:Proceedings)
+                MERGE (p)-[nr:PUBLISHED_AT]->(pr) SET nr.pages = r.pages DELETE r
+                """,
+
+                # 8. Unificación de publicaciones (Volumes)
+                """
+                MATCH (p:Paper)-[r:PUBLISHED_IN_VOLUME]->(v:Volume)
+                MERGE (p)-[nr:PUBLISHED_AT]->(v) SET nr.pages = r.pages DELETE r
+                """
+            ]
+
+            with self.driver.session() as session:
+                for i, query in enumerate(queries, 1):
+                    # Limpiamos espacios en blanco innecesarios
+                    clean_query = query.strip()
+                    if not clean_query: continue
+                    
+                    print(f"Executing Transformation Step {i}/{len(queries)}...")
+                    try:
+                        session.run(clean_query)
+                    except Exception as e:
+                        print(f"Error in step {i}")
+                        raise ErrorModelling(e)
+
+            print("A.3 Model Transformation Complete!")
