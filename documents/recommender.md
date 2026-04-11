@@ -75,3 +75,37 @@ FOREACH (ignoreMe IN CASE WHEN top_papers_count >= 2 THEN [1] ELSE [] END |
     MERGE (a)-[:IS_GURU_OF]->(c)
 )
 ```
+
+
+
+Justificación del Diseño: Evolución del Grafo para Detección de Comunidades (Ejercicio C)
+El objetivo de este conjunto de consultas es evolucionar el modelo de datos (Property Graph) para identificar de manera inteligente a los expertos y "gurús" de un dominio de investigación específico (en este caso, Bases de Datos). Para ello, se ha optado por un diseño por fases que materializa resultados intermedios a través de nuevas relaciones, lo cual optimiza el rendimiento y enriquece semánticamente el grafo.
+
+A continuación, se detalla la justificación de cada paso del diseño:
+
+1. Definición y Materialización de la Comunidad (Step 1)
+En lugar de filtrar los artículos por sus palabras clave en cada consulta repetidamente, hemos decidido tratar la "Comunidad" como una entidad de primera clase creando el nodo (:Community {name: 'Database'}).
+
+Justificación: Al crear la relación explícita (Paper)-[:BELONGS_TO_COMMUNITY]->(Community), transformamos una búsqueda de propiedades de texto (costosa a gran escala) en un simple recorrido de grafo (traversal). Esto sienta las bases para que los siguientes algoritmos operen de manera eficiente basándose en la topología del grafo en lugar de en los atributos de los nodos.
+
+2. Identificación de Medios de Publicación Afines (Step 2)
+El objetivo aquí es encontrar los focos de publicación (en este caso, Volumes y Proceedings) que son "puros" o altamente dedicados a esta temática.
+
+Justificación del salto variable (*1..3): Dado que nuestro modelo A.3 tiene jerarquías de publicación complejas, el uso de saltos variables garantiza que capturamos los artículos independientemente de si la estructura intermedia varía.
+
+Justificación de la métrica (Threshold del 90%): Se agrupan todos los artículos que llegan a un mismo medio (WITH venue... count(DISTINCT p)) y se evalúa la proporción de artículos de la comunidad. Si es mayor o igual al 90%, se asume que el medio es un nicho de la base de datos. Guardar esto con [:RELATED_TO_COMMUNITY] evita tener que recalcular este costoso umbral estadístico en las consultas futuras.
+
+3. Detección de los Artículos Más Influyentes (Step 3)
+La métrica de impacto convencional (contar todas las citas de un artículo) puede estar sesgada si un artículo es popular en otras áreas. Este paso refina la métrica de calidad midiendo únicamente el impacto intra-comunidad.
+
+Justificación: Al forzar que el nodo citante (db_paper) tenga la relación [:BELONGS_TO_COMMUNITY], estamos evaluando el prestigio del artículo estrictamente dentro de su nicho (Bases de Datos). Ordenar estas citas de forma descendente y limitar el resultado a 100 nos permite etiquetar a la "élite" de la investigación mediante la relación [:IS_TOP_100_OF].
+
+4. Clasificación de Autores: Revisores y Gurús (Step 4)
+El paso final transfiere el prestigio de los artículos (Top 100) a sus creadores, categorizándolos en dos niveles jerárquicos de conocimiento.
+
+Justificación: Si un autor ha escrito un artículo de la élite, automáticamente se le cualifica como revisor potencial ([:POTENTIAL_REVIEWER_FOR]). Sin embargo, para identificar a los verdaderos líderes intelectuales ("gurús"), se exige consistencia: haber publicado al menos dos artículos en el Top 100.
+
+Técnica Cypher: La utilización de la estructura FOREACH (ignoreMe IN CASE WHEN ...) actúa como un bloque condicional (IF) nativo en Cypher, permitiendo crear la relación de élite [:IS_GURU_OF] en la misma transacción sin necesidad de realizar una consulta separada, optimizando así las operaciones de escritura en Neo4j.
+
+Conclusión del Diseño:
+Este diseño de 4 pasos transforma los datos brutos bibliográficos en conocimiento accionable. Hemos pasado de tener simples artículos y conferencias a poseer un subgrafo fuertemente conectado que nos responde de manera inmediata quiénes son las personas más capacitadas para evaluar el trabajo de otros en un área concreta.
