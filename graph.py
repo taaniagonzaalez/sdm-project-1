@@ -237,172 +237,155 @@ class GraphBuilder:
                 self.rel_evaluates_paper.add((review_id, paper_id))
     
     def generate_synthetic_data(self, scale_multiplier=10):
-        """
-        Generates synthetic data for all 13 nodes and 14 relationships.
-        scale_multiplier dictates how large the generated dataset will be.
-        """
-        print(f"Generating synthetic graph (scale x{scale_multiplier})...")
+        print(f"Generando datos sintéticos (multiplicador: x{scale_multiplier})...")
 
-        # --- 1. GENERATE BASE NODES ---
-        # Years (2010 to 2024)
-        synth_years = []
-        for y in range(2010, 2025):
-            y_id = f"year_{y}"
-            self.years[y_id] = {"year_id": y_id, "value": y}
-            synth_years.append(y_id)
+        # 1. FORZAR TEMAS DE BASES DE DATOS (Para el Ejercicio C)
+        db_topics = [
+            'data management', 'indexing', 'data modeling', 
+            'big data', 'data processing', 'data storage', 'data querying'
+        ]
+        
+        for topic_name in db_topics:
+            topic_id = slugify(topic_name)
+            if topic_id not in self.topics:
+                self.topics[topic_id] = {
+                    "name": topic_name,
+                    "area": "Database Systems"
+                }
 
-        # Cities (10 * scale)
-        synth_cities = []
-        for _ in range(10 * scale_multiplier):
-            c_id = f"city_{uuid.uuid4().hex[:8]}"
-            self.cities[c_id] = {"city_id": c_id, "name": fake.city(), "country": fake.country()}
-            synth_cities.append(c_id)
-
-        # Topics (15 * scale)
-        synth_topics = []
-        for _ in range(15 * scale_multiplier):
-            t_id = f"topic_{uuid.uuid4().hex[:8]}"
-            self.topics[t_id] = {"topic_id": t_id, "name": fake.catch_phrase(), "area": "Computer Science"}
-            synth_topics.append(t_id)
-
-        # Organizations (5 * scale)
-        synth_orgs = []
-        for _ in range(5 * scale_multiplier):
-            o_id = f"org_{uuid.uuid4().hex[:8]}"
-            self.organizations[o_id] = {"org_id": o_id, "name": fake.company(), "type": random.choice(["University", "Company", "Research Lab"])}
-            synth_orgs.append(o_id)
-
-        # --- 2. GENERATE VENUES (Journals, Conferences, Workshops) ---
-        synth_journals = []
-        for _ in range(5 * scale_multiplier):
-            j_id = f"journal_{uuid.uuid4().hex[:8]}"
-            self.journals[j_id] = {"journal_id": j_id, "name": f"Journal of {fake.word().title()}", "issn": fake.bothify(text='####-####')}
-            synth_journals.append(j_id)
-
-        synth_conferences = []
-        for _ in range(5 * scale_multiplier):
-            c_id = f"conf_{uuid.uuid4().hex[:8]}"
-            self.conferences[c_id] = {"conference_id": c_id, "name": f"Int. Conf. on {fake.word().title()}", "acronym": fake.lexify(text='????').upper(), "ranking": random.choice(["A*", "A", "B", "C"])}
-            synth_conferences.append(c_id)
-
-        synth_workshops = []
-        for _ in range(5 * scale_multiplier):
-            w_id = f"ws_{uuid.uuid4().hex[:8]}"
-            self.workshops[w_id] = {"workshop_id": w_id, "name": f"Workshop on {fake.word().title()}", "acronym": fake.lexify(text='??WS').upper()}
-            synth_workshops.append(w_id)
-
-        # --- 3. GENERATE VENUE INSTANCES (Volumes, Editions, Proceedings) ---
-        synth_volumes = []
-        for j_id in synth_journals:
-            for vol_num in range(1, random.randint(3, 6)):
-                v_id = f"vol_{uuid.uuid4().hex[:8]}"
-                self.volumes[v_id] = {"volume_node_id": v_id, "volume_id": str(vol_num), "issue_number": str(random.randint(1, 12))}
-                synth_volumes.append(v_id)
-                # Relationship: Volume PART_OF Journal & DATED_IN Year
-                self.rel_volume_part_of.add((v_id, j_id))
-                # Note: Assuming your schema has a rel_volume_dated_in set (if not, add it to __init__!)
-                if hasattr(self, 'rel_volume_dated_in'):
-                    self.rel_volume_dated_in.add((v_id, random.choice(synth_years)))
-
-        synth_editions = []
-        synth_proceedings = []
-        for parent_id, parent_type in [(c, "Conference") for c in synth_conferences] + [(w, "Workshop") for w in synth_workshops]:
-            for ed_num in range(1, random.randint(2, 5)):
-                # Edition
-                e_id = f"ed_{uuid.uuid4().hex[:8]}"
-                start_date = fake.date_between(start_date="-10y", end_date="today")
-                self.editions[e_id] = {"edition_id": e_id, "number": ed_num, "start_date": str(start_date), "end_date": str(start_date)}
-                synth_editions.append(e_id)
-                
-                # Proceedings for this edition
-                p_id = f"proc_{uuid.uuid4().hex[:8]}"
-                self.proceedings[p_id] = {"proceedings_id": p_id, "title": f"Proc. of {parent_type} {ed_num}", "publisher": fake.company()}
-                synth_proceedings.append(p_id)
-
-                # Relationships for Edition & Proceedings
-                self.rel_edition_part_of.add((e_id, parent_type, parent_id))
-                self.rel_edition_dated_in.add((e_id, random.choice(synth_years)))
-                self.rel_edition_held_in.add((e_id, random.choice(synth_cities)))
-                self.rel_proceedings_belongs_to.add((p_id, e_id))
-
-        # --- 4. GENERATE AUTHORS & AFFILIATIONS ---
-                synth_authors = []
-                for _ in range(5 * scale_multiplier):
-                    a_id = f"auth_{uuid.uuid4().hex[:8]}"
-                    
-                    # Seleccionamos una organización de las ya creadas para que el nombre coincida
-                    random_org_id = random.choice(synth_orgs)
-                    org_name = self.organizations[random_org_id]["name"]
-
-                    self.authors[a_id] = {
-                        "author_id": a_id, 
-                        "name": fake.name(), 
-                        "orcid": fake.bothify(text='0000-000#-####-####'),
-                        "affiliation": org_name  
-                    }
-                    synth_authors.append(a_id)
-
-        # --- 5. GENERATE PAPERS & PUBLICATIONS ---
-        synth_papers = []
-        for _ in range(10 * scale_multiplier):
-            p_id = f"paper_{uuid.uuid4().hex[:12]}"
-            self.papers[p_id] = {
-                "paper_id": p_id, "title": fake.catch_phrase().title(), "doi": f"10.1000/synth.{random.randint(1000, 99999)}",
-                "num_pages": random.randint(5, 30), "abstract_summary": fake.paragraph(nb_sentences=5), "year_published": random.randint(2010, 2024)
+        # 2. GENERAR OTROS TEMAS ALEATORIOS
+        num_random_topics = 5 * scale_multiplier
+        for _ in range(num_random_topics):
+            topic_name = fake.bs()
+            topic_id = slugify(topic_name)
+            self.topics[topic_id] = {
+                "name": topic_name,
+                "area": fake.job()
             }
-            synth_papers.append(p_id)
 
-            # Paper HAS_KEYWORD Topic
-            for t_id in random.sample(synth_topics, random.randint(1, 4)):
-                self.rel_has_keyword.add((p_id, t_id, round(random.uniform(0.5, 1.0), 2)))
+        # 3. GENERAR AUTORES
+        num_authors = 20 * scale_multiplier
+        author_ids = []
+        for _ in range(num_authors):
+            a_name = fake.name()
+            a_id = slugify(a_name) + "_" + str(random.randint(100, 999))
+            author_ids.append(a_id)
+            self.authors[a_id] = {
+                "name": a_name,
+                "orcid": fake.uuid4(),
+                "affiliation": fake.company()
+            }
 
-            # Author WRITES Paper
-            writers = random.sample(synth_authors, random.randint(1, 5))
-            for idx, a_id in enumerate(writers):
-                self.rel_writes.add((a_id, p_id, "main" if idx==0 else "co-author", True if idx==0 else False, idx+1))
+        # 4. GENERAR VENUES (Conferences, Journals, Editions, Proceedings y Volumes)
+        num_venues = 3 * scale_multiplier
+        proceedings_ids = []
+        volume_ids = []
 
-            # Paper Published in (50% Volume, 50% Proceedings)
-            pages_str = f"{random.randint(1, 50)}-{random.randint(51, 100)}"
-            if random.choice([True, False]) and synth_volumes:
-                self.rel_published_in_volume.add((p_id, random.choice(synth_volumes), pages_str))
-            elif synth_proceedings:
-                self.rel_published_in_proceedings.add((p_id, random.choice(synth_proceedings), pages_str))
+        # Asegurar de forma segura que existe el set para las revistas si no lo creaste explícitamente en init
+        if not hasattr(self, 'rel_volume_part_of'):
+            self.rel_volume_part_of = set()
+
+        # 4.1 Crear Conferencias, Ediciones y Actas (Proceedings)
+        for i in range(num_venues):
+            c_id = f"conf_{i}_{slugify(fake.word())}"
+            self.conferences[c_id] = {
+                "name": fake.catch_phrase().title() + " Conference",
+                "acronym": fake.word().upper() + str(random.randint(10, 99)),
+                "ranking": random.choice(["A*", "A", "B", "C"])
+            }
             
-            # 2. Creamos el nodo Abstract (PARA EVITAR CSV VACÍO)
-            abs_id = f"abs_{p_id}"
-            abs_content = fake.paragraph(nb_sentences=5)
-            self.abstracts[abs_id] = {
-                "abstract_id": abs_id,
-                "content": abs_content,
-                "word_count": len(abs_content.split())
+            # 1 a 3 ediciones por conferencia
+            for ed in range(random.randint(1, 3)):
+                e_id = f"ed_{ed}_{c_id}"
+                self.editions[e_id] = {
+                    "number": ed + 1,
+                    "start_date": str(fake.date_this_decade()),
+                    "end_date": str(fake.date_this_decade())
+                }
+                self.rel_edition_part_of.add((e_id, "Conference", c_id))
+                
+                pr_id = f"proc_{e_id}"
+                proceedings_ids.append(pr_id)
+                self.proceedings[pr_id] = {
+                    "title": f"Proceedings of {self.conferences[c_id]['acronym']} Vol {ed+1}",
+                    "publisher": fake.company()
+                }
+                self.rel_proceedings_belongs_to.add((pr_id, e_id))
+
+        # 4.2 Crear Journals y Volumes
+        for i in range(num_venues):
+            j_id = f"journ_{i}_{slugify(fake.word())}"
+            self.journals[j_id] = {
+                "name": fake.catch_phrase().title() + " Journal",
+                "issn": f"{random.randint(1000,9999)}-{random.randint(1000,9999)}",
+                "impact_factor": round(random.uniform(0.5, 10.0), 2)
             }
-            # Relación STARTS_WITH (Añádela a self.rel_starts_with en __init__ si no está)
-            self.rel_starts_with.add((p_id, abs_id))
+            
+            # 1 a 3 volúmenes por revista
+            for vol in range(random.randint(1, 3)):
+                v_id = f"vol_{vol}_{j_id}"
+                volume_ids.append(v_id)
+                self.volumes[v_id] = {
+                    "volume_id": str(vol + 1),
+                    "issue_number": str(random.randint(1, 12))
+                }
+                self.rel_volume_part_of.add((v_id, j_id))
 
-        # Paper CITES Paper
-        for p_id in synth_papers:
-            if random.random() > 0.3: # 70% chance to cite others
-                cited_papers = random.sample(synth_papers, min(len(synth_papers), random.randint(1, 10)))
-                for cited_id in cited_papers:
-                    if cited_id != p_id:
-                        self.rel_cites.add((p_id, cited_id, "background", round(random.uniform(0.1, 1.0), 2)))
-        
-        
+        # 5. GENERAR PAPERS Y ASIGNAR TOPICS, AUTORES Y VENUES
+        num_papers = 50 * scale_multiplier
+        all_topic_ids = list(self.topics.keys())
+        paper_ids = []
 
-        # --- 6. GENERATE REVIEWS ---
-        for p_id in synth_papers:
-            if random.random() > 0.5: # 50% of papers get reviews
-                reviewers = random.sample(synth_authors, random.randint(1, 3))
-                for a_id in reviewers:
-                    r_id = f"rev_{uuid.uuid4().hex[:8]}"
-                    self.reviews[r_id] = {"review_id": r_id, "content_description": fake.paragraph(), "decision": random.choice(["Accepted", "Rejected", "Revise"])}
-                    
-                    # Author PROVIDES_REVIEW, Review EVALUATES Paper
-                    if hasattr(self, 'rel_provides_review') and hasattr(self, 'rel_evaluates_paper'):
-                        self.rel_provides_review.add((a_id, r_id))
-                        self.rel_evaluates_paper.add((r_id, p_id))
+        for _ in range(num_papers):
+            p_title = fake.catch_phrase()
+            p_id = slugify(p_title) + "_" + str(random.randint(1000, 9999))
+            paper_ids.append(p_id)
+            
+            # Crear el nodo Paper
+            self.papers[p_id] = {
+                "title": p_title,
+                "doi": "10.1000/" + fake.uuid4()[:8],
+                "num_pages": random.randint(5, 25),
+                "abstract_summary": fake.paragraph(),
+                "year_published": random.randint(2010, 2024)
+            }
 
-        print(f"Synthetic generation complete! Added {len(synth_papers)} papers and {len(synth_authors)} authors.")
+            # Relación: (Paper)-[:CONTAINS]->(Topic)
+            chosen_topics = random.sample(all_topic_ids, k=random.randint(1, 3))
+            for t_id in chosen_topics:
+                relevance = round(random.uniform(0.1, 1.0), 2)
+                self.rel_has_keyword.add((p_id, t_id, relevance))
+
+            # Relación: (Author)-[:WRITES]->(Paper)
+            chosen_authors = random.sample(author_ids, k=random.randint(1, 4))
+            for order, a_id in enumerate(chosen_authors, start=1):
+                role = 'main' if order == 1 else 'co-author'
+                is_corresponding = (order == 1)
+                self.rel_writes.add((a_id, p_id, role, is_corresponding, order))
+
+            # --- NUEVO: Relación de Publicación ---
+            # Decidimos si el paper va a un Proceedings (60%) o a un Volume (40%)
+            pages_str = f"{random.randint(1, 100)}-{random.randint(101, 200)}"
+            if random.random() < 0.6 and proceedings_ids:
+                pr_id = random.choice(proceedings_ids)
+                self.rel_published_in_proceedings.add((p_id, pr_id, pages_str))
+            elif volume_ids:
+                v_id = random.choice(volume_ids)
+                self.rel_published_in_volume.add((p_id, v_id, pages_str))
+
+        # 6. GENERAR CITAS ENTRE PAPERS (Paper)-[:CITES]->(Paper)
+        for p_id in paper_ids:
+            num_citations = random.randint(0, 5)
+            possible_targets = [pid for pid in paper_ids if pid != p_id]
+            
+            if possible_targets:
+                targets = random.sample(possible_targets, k=min(num_citations, len(possible_targets)))
+                for t_id in targets:
+                    context = fake.sentence()
+                    rank_score = round(random.uniform(0.1, 5.0), 2)
+                    self.rel_cites.add((p_id, t_id, context, rank_score))
+
+        print(f"Generación sintética completada. Total de papers: {len(self.papers)}, Total de autores: {len(self.authors)}.")
 
     def write_csv(self, path: Path, fieldnames: List[str], rows: List[dict], include_id_in_row=False, id_col_name="id"):
         path.parent.mkdir(parents=True, exist_ok=True)
