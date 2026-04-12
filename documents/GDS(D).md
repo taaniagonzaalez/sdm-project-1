@@ -14,7 +14,7 @@ RETURN gds.util.asNode(nodeId).title AS Paper, score
 ORDER BY score DESC LIMIT 10;
 Interpretation: The result provides a list of papers ordered by their importance. High scores indicate "authoritative" papers that serve as the foundation for the community's knowledge.
 
-2. Community Detection
+2. Louvain
 This algorithm identifies clusters of papers that cite each other more frequently than they cite the rest of the graph. In our domain, this reveals "Sub-disciplines" (e.g., a cluster for "Graph Databases" and another for "Relational Optimization") that might not be explicitly labeled by keywords but emerge from the citation patterns.
 
 // 1. Run Louvain and write the community ID back to the nodes
