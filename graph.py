@@ -25,7 +25,6 @@ class GraphBuilder:
         self.conferences: Dict[str, dict] = {}
         self.workshops: Dict[str, dict] = {}
         self.organizations: Dict[str, dict] = {}
-        self.reviews: Dict[str, dict] = {}
         self.abstracts: Dict[str,dict] = {}
 
         # Relationships
@@ -41,9 +40,8 @@ class GraphBuilder:
         self.rel_volume_part_of = set()
         self.rel_writes = set()
         self.rel_affiliated_with = set()
-        self.rel_provides_review = set()
-        self.rel_evaluates_paper = set()
         self.rel_starts_with = set()
+        self.rel_reviews = set() # (author_id, paper_id, score, comments, decision)
 
     def add_year(self, year: Optional[int]) -> Optional[str]:
         if not year:
@@ -229,12 +227,11 @@ class GraphBuilder:
                 decision = random.choice(["Accept", "Accept", "Weak Accept", "Reject"])
                 content = f"This is a mock review. The methodology was {'solid' if 'Accept' in decision else 'flawed'}."
                 
-                # Add Node
-                self.reviews[review_id] = {"content_description": content, "decision": decision}
+               # Generate a mock score to match A.1 schema
+                score = round(random.uniform(1.0, 5.0), 1)
                 
-                # Add Relationships
-                self.rel_provides_review.add((reviewer_id, review_id))
-                self.rel_evaluates_paper.add((review_id, paper_id))
+                # Add a single Relationship directly (A.1 Model)
+                self.rel_reviews.add((reviewer_id, paper_id, score, content, decision))
     
     def generate_synthetic_data(self, scale_multiplier=10):
         print(f"Generando datos sintéticos (multiplicador: x{scale_multiplier})...")
@@ -418,7 +415,6 @@ class GraphBuilder:
         self.write_csv(output_dir / "journals.csv", ["journal_id", "name", "issn"], self.journals.items(), True, "journal_id")
         self.write_csv(output_dir / "conferences.csv", ["conference_id", "name", "acronym", "ranking"], self.conferences.items(), True, "conference_id")
         self.write_csv(output_dir / "workshops.csv", ["workshop_id", "name", "acronym"], self.workshops.items(), True, "workshop_id")
-        self.write_csv(output_dir / "reviews.csv", ["review_id", "content_description", "decision"], self.reviews.items(), True, "review_id")
         self.write_csv(output_dir / "abstracts.csv", ["abstract_id", "content", "word_count"], self.abstracts.items(), True, "abstract_id")
 
         # Relationships
@@ -433,8 +429,6 @@ class GraphBuilder:
         write_rel("paper_published_in_proceedings.csv", ["paper_id", "proceedings_id", "pages"], self.rel_published_in_proceedings)
         write_rel("paper_published_in_volume.csv", ["paper_id", "volume_id", "pages"], self.rel_published_in_volume)
         write_rel("author_writes.csv", ["author_id", "paper_id", "role", "is_corresponding", "author_order"], self.rel_writes)
-        write_rel("author_provides_review.csv", ["author_id", "review_id"], self.rel_provides_review)
-        write_rel("review_evaluates_paper.csv", ["review_id", "paper_id"], self.rel_evaluates_paper)
         write_rel("proceedings_belongs_to.csv", ["proceedings_id", "edition_id"], self.rel_proceedings_belongs_to)
         write_rel("edition_part_of.csv", ["edition_id", "parent_label", "parent_id"], self.rel_edition_part_of)
         write_rel("edition_held_in.csv", ["edition_id", "city_id"], self.rel_edition_held_in)
@@ -442,3 +436,4 @@ class GraphBuilder:
         write_rel("volume_part_of.csv", ["volume_id", "journal_id"], self.rel_volume_part_of)
         write_rel("volume_dated_in.csv", ["volume_id", "year_id"], self.rel_volume_dated_in)
         write_rel("paper_starts_with.csv", ["paper_id", "abstract_id"], self.rel_starts_with)
+        write_rel("author_reviews_paper.csv", ["author_id", "paper_id", "score", "comments", "decision"], self.rel_reviews)

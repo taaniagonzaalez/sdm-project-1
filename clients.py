@@ -149,12 +149,6 @@ class GraphTransformerApp:
             SET w.name = row.name,
                 w.acronym = row.acronym;
             """,
-            f"""
-            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/reviews.csv' AS row
-            MERGE (rev:Review {{review_id: row.review_id}})
-            SET rev.content_description = row.content_description,
-                rev.decision = row.decision;
-            """,
 
             # ==========================================
             # 2. LOAD RELATIONSHIPS
@@ -194,22 +188,19 @@ class GraphTransformerApp:
             }}]->(p);
             """,
             f"""
-            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/author_provides_review.csv' AS row
-            MATCH (a:Author {{author_id: row.author_id}})
-            MATCH (rev:Review {{review_id: row.review_id}})
-            MERGE (a)-[:PROVIDES_REVIEW]->(rev);
-            """,
-            f"""
-            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/review_evaluates_paper.csv' AS row
-            MATCH (rev:Review {{review_id: row.review_id}})
-            MATCH (p:Paper {{paper_id: row.paper_id}})
-            MERGE (rev)-[:EVALUATES_PAPER]->(p);
-            """,
-            f"""
             LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/proceedings_belongs_to.csv' AS row
             MATCH (pr:Proceedings {{proceedings_id: row.proceedings_id}})
             MATCH (e:Edition {{edition_id: row.edition_id}})
             MERGE (pr)-[:BELONGS_TO]->(e);
+            """,
+            f"""
+            LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/author_reviews_paper.csv' AS row
+            MATCH (a:Author {{author_id: row.author_id}})
+            MATCH (p:Paper {{paper_id: row.paper_id}})
+            MERGE (a)-[r:REVIEWS]->(p)
+            SET r.score = toFloat(row.score),
+                r.comments = row.comments,
+                r.decision = row.decision;
             """,
             f"""
             LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/edition_part_of.csv' AS row
@@ -265,23 +256,19 @@ class GraphTransformerApp:
     def run_transformation_a3(self):
             # Cada string en esta lista debe ser UNA SOLA instrucción de Cypher
             queries = [
-                # 1. Transformación de Reviews: Separar el autor de la review
                 """
-                MATCH (a:Author)-[r:PROVIDES_REVIEW]->(rev:Review)
-                MERGE (a)-[:SUBMITTED]->(rev)
-                """,
-                
-                # 2. Transformación de Reviews: Conectar la review con el paper
-                """
-                MATCH (rev:Review)-[r:EVALUATES_PAPER]->(p:Paper)
-                MERGE (rev)-[:REVIEWS]->(p)
-                """,
-
-                # 3. Borrar relaciones antiguas (Aislado para evitar el error de '2 statements')
-                """
-                MATCH (a:Author)-[r:PROVIDES_REVIEW]->(rev:Review)-[r2:EVALUATES_PAPER]->(p:Paper)
-                DELETE r, r2
-                """,
+                // Extracting an Edge into a Node
+                    MATCH (a:Author)-[r:REVIEWS]->(p:Paper)
+                    // 1. Create the new Review node
+                    MERGE (rev:Review {review_id: "rev_" + id(r)})
+                    SET rev.content_description = r.comments,
+                        rev.decision = r.decision
+                    // 2. Create the new structural relationships
+                    MERGE (a)-[:SUBMITTED]->(rev)
+                    MERGE (rev)-[:REVIEWS]->(p)
+                    // 3. Delete the old direct relationship
+                    DELETE r
+                    """,
                 
                 # 4. Transformación de Afiliaciones (Usando funciones nativas para evitar error de APOC)
                 """
