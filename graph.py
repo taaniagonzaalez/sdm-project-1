@@ -212,14 +212,12 @@ class GraphBuilder:
         """Generates 3 dummy reviews per paper strictly following business logic constraints."""
         all_authors = list(self.authors.keys())
         if len(all_authors) < 4:
-            return # Not enough authors in the graph to mock reviews
+            return 
             
         for paper_id in self.papers.keys():
-            # Find authors who wrote this paper so they don't review it
             writers_of_this_paper = {a for (a, p, _, _, _) in self.rel_writes if p == paper_id}
             eligible_reviewers = [a for a in all_authors if a not in writers_of_this_paper]
-            
-            # Pick 3 random reviewers
+
             selected_reviewers = random.sample(eligible_reviewers, min(3, len(eligible_reviewers)))
             
             for i, reviewer_id in enumerate(selected_reviewers):
@@ -227,16 +225,12 @@ class GraphBuilder:
                 decision = random.choice(["Accept", "Accept", "Weak Accept", "Reject"])
                 content = f"This is a mock review. The methodology was {'solid' if 'Accept' in decision else 'flawed'}."
                 
-               # Generate a mock score to match A.1 schema
                 score = round(random.uniform(1.0, 5.0), 1)
-                
-                # Add a single Relationship directly (A.1 Model)
+
                 self.rel_reviews.add((reviewer_id, paper_id, score, content, decision))
     
     def generate_synthetic_data(self, scale_multiplier=10):
         print(f"Generando datos sintéticos (multiplicador: x{scale_multiplier})...")
-
-        # 1. FORZAR TEMAS DE BASES DE DATOS (Para el Ejercicio C)
         db_topics = [
             'data management', 'indexing', 'data modeling', 
             'big data', 'data processing', 'data storage', 'data querying'
@@ -250,7 +244,7 @@ class GraphBuilder:
                     "area": "Database Systems"
                 }
 
-        # 2. GENERAR OTROS TEMAS ALEATORIOS
+        # GENERATE TOPICS
         num_random_topics = 5 * scale_multiplier
         for _ in range(num_random_topics):
             topic_name = fake.bs()
@@ -260,7 +254,7 @@ class GraphBuilder:
                 "area": fake.job()
             }
 
-        # 3. GENERAR AUTORES
+        # GENERATE AUTHORS
         num_authors = 20 * scale_multiplier
         author_ids = []
         for _ in range(num_authors):
@@ -273,16 +267,16 @@ class GraphBuilder:
                 "affiliation": fake.company()
             }
 
-        # 4. GENERAR VENUES (Conferences, Journals, Editions, Proceedings y Volumes)
+        # GENERATE VENUES
         num_venues = 3 * scale_multiplier
         proceedings_ids = []
         volume_ids = []
 
-        # Asegurar de forma segura que existe el set para las revistas si no lo creaste explícitamente en init
+
         if not hasattr(self, 'rel_volume_part_of'):
             self.rel_volume_part_of = set()
 
-        # 4.1 Crear Conferencias, Ediciones y Actas (Proceedings)
+
         for i in range(num_venues):
             c_id = f"conf_{i}_{slugify(fake.word())}"
             self.conferences[c_id] = {
@@ -291,7 +285,7 @@ class GraphBuilder:
                 "ranking": random.choice(["A*", "A", "B", "C"])
             }
             
-            # 1 a 3 ediciones por conferencia
+
             for ed in range(random.randint(1, 3)):
                 e_id = f"ed_{ed}_{c_id}"
                 self.editions[e_id] = {
@@ -309,7 +303,7 @@ class GraphBuilder:
                 }
                 self.rel_proceedings_belongs_to.add((pr_id, e_id))
 
-        # 4.2 Crear Journals y Volumes
+
         for i in range(num_venues):
             j_id = f"journ_{i}_{slugify(fake.word())}"
             self.journals[j_id] = {
@@ -317,8 +311,7 @@ class GraphBuilder:
                 "issn": f"{random.randint(1000,9999)}-{random.randint(1000,9999)}",
                 "impact_factor": round(random.uniform(0.5, 10.0), 2)
             }
-            
-            # 1 a 3 volúmenes por revista
+
             for vol in range(random.randint(1, 3)):
                 v_id = f"vol_{vol}_{j_id}"
                 volume_ids.append(v_id)
@@ -328,7 +321,7 @@ class GraphBuilder:
                 }
                 self.rel_volume_part_of.add((v_id, j_id))
 
-        # 5. GENERAR PAPERS Y ASIGNAR TOPICS, AUTORES Y VENUES
+        # GENERATE PAPERS
         num_papers = 50 * scale_multiplier
         all_topic_ids = list(self.topics.keys())
         paper_ids = []
@@ -338,7 +331,6 @@ class GraphBuilder:
             p_id = slugify(p_title) + "_" + str(random.randint(1000, 9999))
             paper_ids.append(p_id)
             
-            # Crear el nodo Paper
             self.papers[p_id] = {
                 "title": p_title,
                 "doi": "10.1000/" + fake.uuid4()[:8],
@@ -347,21 +339,19 @@ class GraphBuilder:
                 "year_published": random.randint(2010, 2024)
             }
 
-            # Relación: (Paper)-[:CONTAINS]->(Topic)
+
             chosen_topics = random.sample(all_topic_ids, k=random.randint(1, 3))
             for t_id in chosen_topics:
                 relevance = round(random.uniform(0.1, 1.0), 2)
                 self.rel_has_keyword.add((p_id, t_id, relevance))
 
-            # Relación: (Author)-[:WRITES]->(Paper)
+
             chosen_authors = random.sample(author_ids, k=random.randint(1, 4))
             for order, a_id in enumerate(chosen_authors, start=1):
                 role = 'main' if order == 1 else 'co-author'
                 is_corresponding = (order == 1)
                 self.rel_writes.add((a_id, p_id, role, is_corresponding, order))
 
-            # --- NUEVO: Relación de Publicación ---
-            # Decidimos si el paper va a un Proceedings (60%) o a un Volume (40%)
             pages_str = f"{random.randint(1, 100)}-{random.randint(101, 200)}"
             if random.random() < 0.6 and proceedings_ids:
                 pr_id = random.choice(proceedings_ids)
@@ -370,7 +360,7 @@ class GraphBuilder:
                 v_id = random.choice(volume_ids)
                 self.rel_published_in_volume.add((p_id, v_id, pages_str))
 
-        # 6. GENERAR CITAS ENTRE PAPERS (Paper)-[:CITES]->(Paper)
+        # 6. GENERATE CITES
         for p_id in paper_ids:
             num_citations = random.randint(0, 5)
             possible_targets = [pid for pid in paper_ids if pid != p_id]
@@ -393,16 +383,14 @@ class GraphBuilder:
                 row = data.copy()
                 if include_id_in_row:
                     row[id_col_name] = key
-                # Only write keys that are in fieldnames
                 writer.writerow({k: row.get(k, "") for k in fieldnames})
 
     def export_all(self, output_dir: Path):
         output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Make sure reviews are generated before export!
         self.generate_mock_reviews()
 
-        # Nodes (Matched exactly to schema attributes)
+        # NODES
         self.write_csv(output_dir / "papers.csv", ["paper_id", "title", "doi", "num_pages", "abstract_summary", "year_published"], self.papers.items(), True, "paper_id")
         self.write_csv(output_dir / "authors.csv", ["author_id", "name", "orcid", "affiliation"], self.authors.items(), True, "author_id")
         self.write_csv(output_dir / "organizations.csv", ["org_id", "name", "type"], self.organizations.items(), True, "org_id")
@@ -417,7 +405,7 @@ class GraphBuilder:
         self.write_csv(output_dir / "workshops.csv", ["workshop_id", "name", "acronym"], self.workshops.items(), True, "workshop_id")
         self.write_csv(output_dir / "abstracts.csv", ["abstract_id", "content", "word_count"], self.abstracts.items(), True, "abstract_id")
 
-        # Relationships
+        # RELATIONSHIPS
         def write_rel(filename, headers, data):
             with (output_dir / filename).open("w", newline="", encoding="utf-8") as f:
                 writer = csv.writer(f)

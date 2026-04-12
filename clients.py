@@ -23,8 +23,6 @@ class SemanticScholarClient:
 
     def get_paper_details(self, paper_id: str) -> dict:
             url = f"{SEMANTIC_SCHOLAR_API}/paper/{paper_id}"
-            # FIX: Removed "pages" from the fields list. 
-            # The API will return it inside the "journal" object automatically.
             fields = ",".join([
                 "paperId", "externalIds", "title", "abstract", "year",
                 "venue", "authors", "authors.externalIds", "authors.affiliations", 
@@ -67,7 +65,6 @@ class GraphTransformerApp:
 
     def load_initial_data(self, CSV_PATH):
         """Loads the A.1 model from the generated CSV files."""
-        # Ensure all 27 CSV files are in the Neo4j 'import' folder!
         load_queries = [
             # ==========================================
             # 1. LOAD NODES
@@ -254,7 +251,9 @@ class GraphTransformerApp:
             print("Initial A.1 data loaded successfully!")
 
     def run_transformation_a3(self):
-            # Cada string en esta lista debe ser UNA SOLA instrucción de Cypher
+            """
+            Run transformations of exercice A3
+            """
             queries = [
                 """
                 // Extracting an Edge into a Node
@@ -269,8 +268,6 @@ class GraphTransformerApp:
                     // 3. Delete the old direct relationship
                     DELETE r
                     """,
-                
-                # 4. Transformación de Afiliaciones (Usando funciones nativas para evitar error de APOC)
                 """
                 MATCH (a:Author)
                 WHERE a.affiliation IS NOT NULL
@@ -282,27 +279,22 @@ class GraphTransformerApp:
                         ELSE "Company" 
                     END
                 """,
-
-                # 5. Crear la relación de afiliación
                 """
                 MATCH (a:Author), (o:Organization)
                 WHERE a.affiliation = o.name
                 MERGE (a)-[:AFFILIATED_WITH]->(o)
                 """,
 
-                # 6. Limpieza de propiedad antigua
                 """
                 MATCH (a:Author) WHERE a.affiliation IS NOT NULL
                 REMOVE a.affiliation
                 """,
 
-                # 7. Unificación de publicaciones (Proceedings)
                 """
                 MATCH (p:Paper)-[r:PUBLISHED_IN_PROCEEDINGS]->(pr:Proceedings)
                 MERGE (p)-[nr:PUBLISHED_AT]->(pr) SET nr.pages = r.pages DELETE r
                 """,
 
-                # 8. Unificación de publicaciones (Volumes)
                 """
                 MATCH (p:Paper)-[r:PUBLISHED_IN_VOLUME]->(v:Volume)
                 MERGE (p)-[nr:PUBLISHED_AT]->(v) SET nr.pages = r.pages DELETE r
@@ -311,7 +303,6 @@ class GraphTransformerApp:
 
             with self.driver.session() as session:
                 for i, query in enumerate(queries, 1):
-                    # Limpiamos espacios en blanco innecesarios
                     clean_query = query.strip()
                     if not clean_query: continue
                     

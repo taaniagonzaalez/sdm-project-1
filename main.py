@@ -8,7 +8,6 @@ import argparse
 
 
 def main(download_flag):
-    # You can override the default query using an environment variable
     query = os.getenv("GRAPH_QUERY", DEFAULT_QUERY)
     
     s2 = SemanticScholarClient()
@@ -23,14 +22,10 @@ def main(download_flag):
         for offset in range(0, TOTAL_TO_DOWNLOAD, CHUNK_SIZE):
             print(f"  Fetching batch: offset {offset}...")
             try:
-                # We ask for CHUNK_SIZE papers starting at the current offset
                 batch = s2.search_papers(query=query, limit=CHUNK_SIZE, offset=offset)
                 if not batch:
                     break
                 seed_papers.extend(batch)
-                
-                # CRITICAL: If you get 429s, increase this sleep!
-                # The API needs a breather between batch calls.
                 time.sleep(5.0) 
                 
             except Exception as e:
@@ -59,7 +54,7 @@ def main(download_flag):
                 print(f"  warning: could not enrich {paper_id}: {e}")
         
         print("[+] Expanding graph with Synthetic Data...")
-        # Increase the scale_multiplier if you want thousands of nodes!
+
         graph.generate_synthetic_data(scale_multiplier=10)
 
         print("[4/5] Writing CSV files...")
@@ -72,12 +67,10 @@ def main(download_flag):
 
     app = GraphTransformerApp(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
     try:
-        
-        # Step 1: Connect and process
         app = GraphTransformerApp(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
-        app.clear_database()      # Clean start
-        app.load_initial_data(CSV_PATH)   # Create A.1 model
-        app.run_transformation_a3()  # Evolve to A.3 model
+        app.clear_database()     
+        app.load_initial_data(CSV_PATH)   
+        app.run_transformation_a3()  
     except Exception as e:
         raise Exception(e)
     finally:
@@ -88,9 +81,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="My Neo4j ETL Pipeline")
 
-    # Add the arguments you want to look for
     parser.add_argument("-p", "--download_data", required=False, help="Download data")
 
-    # Parse them
     args = parser.parse_args()
     main(args.download_data)
