@@ -17,20 +17,18 @@ WITH venue, a, count(DISTINCT e) AS editionsCount
 WHERE editionsCount >= 2
 RETURN venue.name AS Venue, 
        collect({author: a.name, editions: editionsCount}) AS Community
-ORDER BY size(Community) DESCs
+ORDER BY size(Community) DESC;
 
 ## QUERY 3:
-```markdown
-```cypher
-MATCH (j:Journal)<-[:PART_OF]-(v:Volume)<-[:PUBLISHED_AT]-(p:Paper)
-OPTIONAL MATCH (citing_paper:Paper)-[:CITES]->(p)
-WITH j, count(DISTINCT p) AS total_papers, count(citing_paper) AS total_citations
-RETURN j.name AS Journal, 
-       total_papers AS Num_Articulos, 
+MATCH (p:Paper)-[:PUBLISHED_AT]->(v:Volume)-[:PART_OF]->(j:Journal)
+OPTIONAL MATCH (citing:Paper)-[:CITES]->(p)
+WITH j, count(DISTINCT p) AS total_papers, count(DISTINCT citing) AS total_citations
+WHERE total_papers > 0
+RETURN j.name AS Journal,
+       total_papers AS Num_Articulos,
        total_citations AS Total_Citas,
-       toFloat(total_citations) / total_papers AS Impact_Factor_Calculado
+       1.0 * total_citations / total_papers AS Impact_Factor_Calculado
 ORDER BY Impact_Factor_Calculado DESC;
-````
 
 ## QUERY 4:
 ```markdown
