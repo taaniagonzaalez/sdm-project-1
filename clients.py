@@ -126,8 +126,8 @@ class GraphTransformerApp:
             """,
             f"""
             LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/volumes.csv' AS row
-            MERGE (v:Volume {{volume_node_id: row.volume_node_id}})
-            SET v.volume_id = row.volume_id,
+            MERGE (v:Volume {{volume_id: row.volume_node_id}})
+            SET v.volume_number = row.volume_id,
                 v.issue_number = row.issue_number;
             """,
             f"""
@@ -179,7 +179,7 @@ class GraphTransformerApp:
             """,
             f"""
             LOAD CSV WITH HEADERS FROM '{CSV_PATH}/graph_csv/paper_published_in_volume.csv' AS row 
-            MATCH (p:Paper {{paper_id: row.paper_id}}), (v:Volume {{volume_node_id: row.volume_id}}) 
+            MATCH (p:Paper {{paper_id: row.paper_id}}), (v:Volume {{volume_id: row.volume_id}}) 
             MERGE (p)-[r:PUBLISHED_IN_VOLUME]->(v) 
             SET r.pages = row.pages;
             """,
